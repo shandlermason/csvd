@@ -1,11 +1,10 @@
 import re
-import misc
 import math
-
+from code import settings
 
 class Num:
     # Object for Num class,
-    def __init__(self, c, s):
+    def __init__(self, c=0, s=""):
         self.n = 0  # items seen
         self.at = c or 0  # column position
         self.name = s or ""  # column name
@@ -28,11 +27,26 @@ class Num:
             self.n = self.n + 1
             self.lo = min(v, self.lo)
             self.hi = max(v, self.hi)
-            if len(self._has) < misc.the.nums:
+            if len(self._has) < settings.the.nums:
                 pos = 1 + len(self._has)
-            elif math.random() < misc.the.nums / self.n:
+            elif math.random() < settings.the.nums / self.n:
                 pos = math.random(len(self._has))
             if pos:
                 self.isSorted = False
                 self._has[pos] = int(v)
-                
+
+    def div(self):
+        percentile_90 = 0.90 * self.nums()  # find 90th percentile
+        percentile_10 = 0.10 * self.nums()  # find 10th percentile
+        return (percentile_90 - percentile_10) / 2.58  # return (90th-10th)/2.56
+
+    def mid(self):
+        sorted_num = self.nums()
+        len_of_list = len(sorted_num)
+        if len_of_list % 2 == 0:
+            first_median = sorted_num[len_of_list // 2]
+            second_median = sorted_num[len_of_list // 2 - 1]
+            mid = (first_median + second_median) / 2
+        else:
+            mid = sorted_num[len_of_list // 2]
+        return mid

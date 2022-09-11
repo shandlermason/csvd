@@ -1,0 +1,6 @@
+env/
+.pytest_cache/
+testing.py
+__pycache__/
+build/
+dist/
