@@ -1,7 +1,6 @@
 import re
-import gsub
 
-help = """
+help: str = """
 CSV : summarized csv file
 (c) 2022 Tim Menzies <timm@ieee.org> BSD−2 license
 USAGE: lua seen.lua [OPTIONS]
@@ -37,7 +36,6 @@ def coerce(s, fun):
 
 
 # Create 'the' variables
-global the
 the = {}
 
 
@@ -47,3 +45,26 @@ def unnamed(k, x):
 
 help.gsub("\n [−][%S]+[%s]+[−][−]([%S]+)[^\n]+= ([%S]+)", unnamed())
 
+
+# 'o' generates string from a nested table
+def o(t, show, u):
+    if type(t) != "table":
+        str(t)
+
+    def show(k, v):
+        if not str(k):
+            re.findall("^_")
+            v = o(v)
+            return len(t) == 0 and str.format(":%s %s", k, v) or str(v)
+        u = {}
+        for k, v in t:
+            u[1 + len(u)] = show(k, v)
+        if len(t) == 0:
+            u.sort()
+
+    return {"..table.concat(u," ").."}  # what does this do??
+
+
+# prints the string from 'o'
+def oo(t):
+    print(o(t))
