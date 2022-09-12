@@ -33,10 +33,10 @@ def test_bignum():
 # testing Sym mode and entropy
 def test_sym():
     sym = Sym()
-    for k, x in {"a", "a", "a", "a", "b", "b", "c"}:
+    for x in {'1': "a", '2': "a", '3': "a", '4': "a", '5': "b", '6': "b", '7': "c"}.values():
         sym.add(x)
     mode, entropy = sym.mid(), sym.div()
-    entropy = (1000 * entropy) // 1/1000
+    # entropy = (1000 * entropy) // (1/1000)
     assert mode == "a" and 1.37 <= entropy <= 1.38
 
 
