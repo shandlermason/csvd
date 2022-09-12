@@ -1,10 +1,13 @@
 from code.num import Num
-from code.settings import oo, the
+from code import settings
 
 
 # test if object exist
 def test_the():
-    return True
+    if settings.the:
+        return True
+    else:
+        print('the does not exist')
 
 
 def test_num():
@@ -21,7 +24,7 @@ def main():
     fail_count = 0
     fail_count += test_the()
     fail_count += test_num()
-    return fail_count
+    return fail_count  # 0 is Success
 
 
 if __name__ == "__main__":

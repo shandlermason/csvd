@@ -1,7 +1,7 @@
 import re
-import math
 from code import settings
 import random
+
 
 class Num:
     # Object for Num class,
