@@ -38,7 +38,7 @@ the = {}
 m = re.findall(r"(.*(?= = ))|((?<= = ).*)", options)  # either re.match or re.findall
 # 'k' is word after the 2 dashes
 # 'x' is what is after equal sign
-for k, x in m.group(1, 2):  # or just m.group()
+for k, x in m:  # or just m.group()
     the[k] = coerce(x)  # coerce is transforming 'x' to correct data type
 
 
