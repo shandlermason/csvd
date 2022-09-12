@@ -1,10 +1,11 @@
-from code.num import Num
-from code import settings
+from src.num import Num
+from src import settings
 
 
 # test if object exist
 def test_the():
     if settings.the:
+        print(settings.the) # incorrect
         return True
     else:
         print('the does not exist')
@@ -12,7 +13,8 @@ def test_the():
 
 def test_num():
     num = Num()
-    for i in range(0, 100):
+    for i in range(1, 101):
+        print(i)
         num.add(i)
     mid, div = num.mid(), num.div()
     print(mid, div)

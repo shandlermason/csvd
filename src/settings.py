@@ -24,6 +24,8 @@ S −−seperator field seperator = ,]]
 
 # Transforms data type to actual, real data type
 def coerce(s):
+    return type(s)
+    """
     def fun(s1):
         if s1 == "true":
             return True
@@ -31,8 +33,8 @@ def coerce(s):
             return False
         return s1
 
-    return int(s) or fun(re.match("^%s*(.-)%s*$", s))  # regex not right
-
+    return int(s) or float(s) or fun(re.match("^%s*(.-)%s*$", s))  # regex not right
+    """
 
 the = {}
 m = re.findall(r"(.*(?= = ))|((?<= = ).*)", options)  # either re.match or re.findall
