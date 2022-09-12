@@ -18,7 +18,7 @@ class Num:
     #  Return sorted kept numbers
     def nums(self):
         if not self.isSorted:
-            self._has.sort()
+            sorted(self._has.items())  # sort by key or value?
             self.isSorted = True
         return self._has
 
@@ -37,9 +37,15 @@ class Num:
                 self._has[pos] = int(v)
 
     def div(self):
-        percentile_90 = 0.90 * self.nums()  # find 90th percentile
-        percentile_10 = 0.10 * self.nums()  # find 10th percentile
-        return (percentile_90 - percentile_10) / 2.58  # return (90th-10th)/2.56
+        div_list = []
+        a = self.nums()
+        for v in a.values():
+            div_list.append(v)
+        mean = sum(div_list) / len(div_list)
+        # measure of how data points differ from the mean
+        variance = sum([((x - mean) ** 2) for x in div_list]) / len(div_list)
+        return variance ** 0.5
+
 
     def mid(self):
         sorted_num = self.nums()
