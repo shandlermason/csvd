@@ -23,3 +23,13 @@ class Data:
             for x, todo in {self.cols.x, self.cols.y}:
                 for y, col in todo.values():
                     col.add(row.cells[col.at])
+
+    def stats(self, places, showCols, fun,):
+        showCols, fun = showCols or self.cols.y, fun or "mid"
+        t = {}
+        for x, col in showCols:
+            v = fun(col)
+            v = type(v) == "number" and settings.rnd(v, places) or v
+            t[col] = v
+        return t
+    

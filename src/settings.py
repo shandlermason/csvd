@@ -1,3 +1,4 @@
+import math
 import re
 
 options = '''
@@ -31,6 +32,11 @@ def coerce(s):
 def push(t, u):
     t[1 + len(t)] = u
     return u
+
+
+def rnd(x, places):
+    mult = 10 ^ (places or 2)
+    return math.floor(x * mult + 0.5) / mult
 
 
 the = {}
