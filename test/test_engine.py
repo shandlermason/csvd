@@ -14,12 +14,12 @@ def test_the():
 def test_num():
     num = Num()
     for i in range(1, 101):
-        print(i)
         num.add(i)
     mid, div = num.mid(), num.div()
     print(mid, div)
     assert (50 <= mid <= 52) and (30.5 < div < 32)
 
+# work on big num
 
 # executes each test and stores results at the end prints results and # of fails
 def main():

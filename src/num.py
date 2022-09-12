@@ -28,7 +28,6 @@ class Num:
             self.n = self.n + 1
             self.lo = min(v, self.lo)
             self.hi = max(v, self.hi)
-            nums = []
             if len(self._has) < 512:  # (512 is the.nums) settings.the[nums] maybe?
                 pos = 1 + len(self._has)
             elif random.random() < 512 / self.n:  # (512 is the.nums)
@@ -42,10 +41,9 @@ class Num:
         a = self.nums()
         for v in a.values():
             div_list.append(v)
-        mean = sum(div_list) / len(div_list)
-        # measure of how data points differ from the mean
-        variance = sum([((x - mean) ** 2) for x in div_list]) / len(div_list)
-        return variance ** 0.5
+        perc_index_90 = (90/100) * len(div_list)
+        perc_index_10 = (10/100) * len(div_list)
+        return (div_list[int(perc_index_90)] - div_list[int(perc_index_10)])/2.58
 
     def mid(self):
         mid_list = []
