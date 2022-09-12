@@ -24,7 +24,8 @@ S −−seperator field seperator = ,]]
 
 # Transforms data type to actual, real data type
 def coerce(s):
-    return type(s)
+    t = type(s)
+    return t(s)
     """
     def fun(s1):
         if s1 == "true":
@@ -37,10 +38,21 @@ def coerce(s):
     """
 
 the = {}
-m = re.findall(r"[−][−]([\w]+)|((?<= = ).*)", options)
+group1 = re.findall(r"[−][−]([\w]+)", options)
+group2 = re.findall(r"((?<= = ).*)", options)
 # 'k' is word after the 2 dashes
 # 'x' is what is after equal sign
-for k, x in m:  # or just m.group()
+print(group1)
+for k in group1:
+    for x in group2:
+        the[k] = coerce(x)
+        group2.remove(x)
+        break
+print(the)
+"""
+for k, x in m.group(1,2):  # or just m.group()
+    print('k', k)
+    print('x', x)
     the[k] = coerce(x)  # coerce is transforming 'x' to correct data type
-
+"""
 
