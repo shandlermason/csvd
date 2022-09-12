@@ -28,6 +28,11 @@ def coerce(s):
     return t(s)
 
 
+def push(t, u):
+    t[1 + len(t)] = u
+    return u
+
+
 the = {}
 group1 = re.findall(r"[−][−]([\w]+)", options)  # word after the 2 dashes
 group2 = re.findall(r"((?<= = ).*)", options)  # what is after equal sign
@@ -37,5 +42,4 @@ for k in group1:
         the[k] = coerce(x)
         group2.remove(x)
         break
-print(the)
 

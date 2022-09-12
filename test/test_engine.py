@@ -40,6 +40,7 @@ def test_sym():
     assert mode == "a" and 1.37 <= entropy <= 1.38
 
 
+
 # executes each test and stores results at the end prints results and # of fails
 def main():
     fail_count = 0
