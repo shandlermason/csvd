@@ -5,7 +5,7 @@ import random
 
 class Num:
     # Object for Num class,
-    def __init__(self, c, s):
+    def __init__(self, c=0, s=""):
         self.n = 0  # items seen
         self.at = c or 0  # column position
         self.name = s or ""  # column name
