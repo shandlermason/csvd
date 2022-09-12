@@ -37,7 +37,7 @@ def coerce(s):
     """
 
 the = {}
-m = re.findall(r"(.*(?= = ))|((?<= = ).*)", options)  # either re.match or re.findall
+m = re.findall(r"[−][−]([\w]+)|((?<= = ).*)", options)
 # 'k' is word after the 2 dashes
 # 'x' is what is after equal sign
 for k, x in m:  # or just m.group()

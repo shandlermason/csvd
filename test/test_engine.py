@@ -5,7 +5,7 @@ from src import settings
 # test if object exist
 def test_the():
     if settings.the:
-        print(settings.the) # incorrect
+        print(settings.the)  # incorrect
         return True
     else:
         print('the does not exist')
@@ -18,6 +18,7 @@ def test_num():
     mid, div = num.mid(), num.div()
     print(mid, div)
     assert (50 <= mid <= 52) and (30.5 < div < 32)
+
 
 # work on big num
 
