@@ -1,10 +1,11 @@
 import re
 import math
 from code import settings
+import random
 
 class Num:
     # Object for Num class,
-    def __init__(self, c=0, s=""):
+    def __init__(self, c, s):
         self.n = 0  # items seen
         self.at = c or 0  # column position
         self.name = s or ""  # column name
@@ -22,15 +23,15 @@ class Num:
         return self._has
 
     #  Reservoir sampler - keeps N numbers and if you see more than N, some old number is replaced at random
-    def add(self, v, pos):
+    def add(self, v):
         if v != '?':
             self.n = self.n + 1
             self.lo = min(v, self.lo)
             self.hi = max(v, self.hi)
             if len(self._has) < settings.the.nums:
                 pos = 1 + len(self._has)
-            elif math.random() < settings.the.nums / self.n:
-                pos = math.random(len(self._has))
+            elif random.random() < settings.the.nums / self.n:
+                pos = random.randint(0, len(self._has))
             if pos:
                 self.isSorted = False
                 self._has[pos] = int(v)
