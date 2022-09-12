@@ -1,4 +1,5 @@
 from src.num import Num
+from src.sym import Sym
 from src import settings
 
 
@@ -9,6 +10,7 @@ def test_the():
     else:
         print('the does not exist')
 
+
 # median and standard deviation test
 def test_num():
     num = Num()
@@ -17,6 +19,7 @@ def test_num():
     mid, div = num.mid(), num.div()
     print(mid, div)
     assert (50 <= mid <= 52) and (30.5 < div < 32)
+
 
 # what is the purpose of this test? Do I have to print numbers out even if test passes?
 def test_bignum():
@@ -27,6 +30,14 @@ def test_bignum():
     assert 32 == len(num._has)
 
 
+# testing Sym mode and entropy
+def test_sym():
+    sym = Sym()
+    for k, x in {"a", "a", "a", "a", "b", "b", "c"}:
+        sym.add(x)
+    mode, entropy = sym.mid(), sym.div()
+    entropy = (1000 * entropy) // 1/1000
+    assert mode == "a" and 1.37 <= entropy <= 1.38
 
 
 # executes each test and stores results at the end prints results and # of fails
@@ -34,6 +45,8 @@ def main():
     fail_count = 0
     fail_count += test_the()
     fail_count += test_num()
+    fail_count += test_bignum()
+    fail_count += test_sym()
     return fail_count  # 0 is Success
 
 

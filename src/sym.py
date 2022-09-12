@@ -18,12 +18,12 @@ class Sym:
                 self._has[v] = 1
 
     # mode - most common symbol
-    def mid(self, col):
+    def mid(self):
         most = -1
-        for k, v in self._has:
+        for k, v in self._has.items():
             if v > most:
                 mode, most = k, v
-        return mode
+                return mode
 
     # entropy - symbols occurring at probability
     def div(self):
