@@ -46,14 +46,16 @@ class Num:
         variance = sum([((x - mean) ** 2) for x in div_list]) / len(div_list)
         return variance ** 0.5
 
-
     def mid(self):
-        sorted_num = self.nums()
-        len_of_list = len(sorted_num)
+        mid_list = []
+        a = self.nums()
+        for v in a.values():
+            mid_list.append(v)
+        len_of_list = len(mid_list)
         if len_of_list % 2 == 0:
-            first_median = sorted_num[len_of_list // 2]
-            second_median = sorted_num[len_of_list // 2 - 1]
+            first_median = a[len_of_list // 2]
+            second_median = a[len_of_list // 2 - 1]
             mid = (first_median + second_median) / 2
         else:
-            mid = sorted_num[len_of_list // 2]
+            mid = a[len_of_list // 2]
         return mid
