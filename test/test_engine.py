@@ -1,6 +1,8 @@
 from src.num import Num
 from src.sym import Sym
+from src.data import Data
 from src import settings
+import csv
 
 
 # test if object exist
@@ -38,6 +40,14 @@ def test_sym():
     mode, entropy = sym.mid(), sym.div()
     # entropy = (1000 * entropy) // (1/1000)
     assert mode == "a" and 1.37 <= entropy <= 1.38
+
+
+# test if we can read csv files
+def csv():
+    with open('./data/auto93.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            print(row)
 
 
 

@@ -32,4 +32,3 @@ class Data:
             v = type(v) == "number" and settings.rnd(v, places) or v
             t[col] = v
         return t
-    
