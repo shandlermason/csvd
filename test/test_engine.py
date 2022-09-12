@@ -9,7 +9,7 @@ def test_the():
     else:
         print('the does not exist')
 
-
+# median and standard deviation test
 def test_num():
     num = Num()
     for i in range(1, 101):
@@ -18,8 +18,16 @@ def test_num():
     print(mid, div)
     assert (50 <= mid <= 52) and (30.5 < div < 32)
 
+# what is the purpose of this test? Do I have to print numbers out even if test passes?
+def test_bignum():
+    num = Num()
+    settings.the['nums'] = 32
+    for i in range(1, 1001):
+        num.add(i)
+    assert 32 == len(num._has)
 
-# work on big num
+
+
 
 # executes each test and stores results at the end prints results and # of fails
 def main():

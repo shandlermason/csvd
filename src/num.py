@@ -30,11 +30,14 @@ class Num:
             self.hi = max(v, self.hi)
             if len(self._has) < int(settings.the['nums']):  # (512 is the.nums) settings.the[nums] maybe?
                 pos = 1 + len(self._has)
+                if pos:
+                    self.isSorted = False
+                    self._has[pos] = int(v)
             elif random.random() < int(settings.the['nums']) / self.n:  # (512 is the.nums)
                 pos = random.randint(0, len(self._has))
-            if pos:
-                self.isSorted = False
-                self._has[pos] = int(v)
+                if pos:
+                    self.isSorted = False
+                    self._has[pos] = int(v)
 
     def div(self):
         div_list = []
