@@ -28,9 +28,9 @@ class Num:
             self.n = self.n + 1
             self.lo = min(v, self.lo)
             self.hi = max(v, self.hi)
-            if len(self._has) < settings.the['nums']:  # (512 is the.nums) settings.the[nums] maybe?
+            if len(self._has) < int(settings.the['nums']):  # (512 is the.nums) settings.the[nums] maybe?
                 pos = 1 + len(self._has)
-            elif random.random() < settings.the['nums'] / self.n:  # (512 is the.nums)
+            elif random.random() < int(settings.the['nums']) / self.n:  # (512 is the.nums)
                 pos = random.randint(0, len(self._has))
             if pos:
                 self.isSorted = False
