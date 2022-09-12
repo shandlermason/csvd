@@ -5,7 +5,6 @@ from src import settings
 # test if object exist
 def test_the():
     if settings.the:
-        print(settings.the)  # incorrect
         return True
     else:
         print('the does not exist')
