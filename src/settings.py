@@ -25,8 +25,17 @@ S −−seperator field seperator = ,]]
 
 # Transforms data type to actual, real data type
 def coerce(s):
-    t = type(s)
-    return t(s)
+    try:
+        return int(s)
+    except ValueError:
+        try:
+            return float(s)
+        except ValueError:
+            return s.strip()
+
+
+    # t = type(s)
+    # return t(s)
 
 
 def push(t, u):

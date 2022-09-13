@@ -12,7 +12,7 @@ class Data:
             for row in src:
                 self.add(row)
         else:
-            for k, row in src.items():
+            for row in src:
                 self.add(row)
 
     # add row to Data
@@ -20,10 +20,9 @@ class Data:
         if not self.cols:
             self.cols = Cols(xs)
         else:
-            row = settings.push(self.rows, xs.cells and xs or Row(xs))
-            for x, todo in {self.cols.x, self.cols.y}:
-                for y, col in todo.values():
-                    col.add(row.cells[col.at])
+            # self.row +=1  # row = settings.push(self.rows, xs.cells and xs or Row(xs))
+            for x, todo in {**self.cols.x, **self.cols.y}.items():
+                todo.add(xs[todo.at])
 
     def stats(self, places, showCols, fun,):
         showCols, fun = showCols or self.cols.y, fun or "mid"
