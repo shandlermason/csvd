@@ -1,6 +1,7 @@
 from src import cols
 from src import settings
 from src.row import Row
+from src.cols import Cols
 
 
 class Data:
