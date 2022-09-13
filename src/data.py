@@ -8,12 +8,28 @@ class Data:
     def __init__(self, src):
         self.cols = None  # summaries of data
         self.rows = {}
-        if type(src) == "string":
+        for lst in src:
+            str_list = []
+            val_list = []
+            for val in lst:
+                if type(val) == str:
+                    str_list.append(val)
+                else:
+                    val_list.append(val)
+
+            self.add(str_list)
+            self.add(val)
+
+
+        """
+        tp = print(type(src))
+        if type(src) == "str":
             for row in src:
                 self.add(row)
         else:
             for row in src:
                 self.add(row)
+        """
 
     # add row to Data
     def add(self, xs):
