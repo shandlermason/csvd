@@ -49,13 +49,24 @@ def test_sym():
 # test if we can read csv files
 def test_csv():
     # myd = OrderedDict()
-    row_list = []
+    row_list1 = []
+    row_list2 = []
+    cell_list = []
     url = 'https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv'
     with closing(requests.get(url, stream=True)) as r:
         reader = csv.reader(codecs.iterdecode(r.iter_lines(), 'utf-8'))
         for row in reader:
-            row_list.append(row)
-        return row_list  # do not return this
+            row_list1.append(row)
+        # return row_list  # do not return this
+        # iterate over ever item in list and convert to data type
+        for list in row_list1:
+            for cell in list:
+                # call coerce for each cell in row_list
+                new_cell = settings.coerce(cell)
+                cell_list.append(new_cell)
+            row_list2.append(cell_list)
+        return row_list2  # return list of list of mixed values
+
         # iterate over ever item in list and convert to data type
         # call coerce for each cell in row_list then return list of list of mixed values
 
