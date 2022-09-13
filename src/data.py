@@ -1,6 +1,6 @@
-from cols import Cols
-import settings
-from row import Row
+from src import cols
+from src import settings
+from src.row import Row
 
 
 class Data:

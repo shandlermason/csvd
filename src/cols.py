@@ -1,6 +1,6 @@
 import re
-from num import Num
-from sym import Sym
+from src.num import Num
+from src.sym import Sym
 
 
 class Cols:

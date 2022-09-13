@@ -2,7 +2,10 @@ from src.num import Num
 from src.sym import Sym
 from src.data import Data
 from src import settings
+import codecs
+from contextlib import closing
 import csv
+import requests
 
 
 # test if object exist
@@ -43,12 +46,20 @@ def test_sym():
 
 
 # test if we can read csv files
-def csv():
-    with open('./data/auto93.csv', 'r') as file:
-        reader = csv.reader(file)
+def test_csv():
+    url = 'https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv'
+    with closing(requests.get(url, stream=True)) as r:
+        reader = csv.reader(codecs.iterdecode(r.iter_lines(), 'utf-8'))
         for row in reader:
             print(row)
 
+
+# test if csv file loads into Data
+def test_data():
+    d = Data(test_csv())
+    if d.cols.y:
+        print('data columns y:', d.cols.y)
+        return True
 
 
 # executes each test and stores results at the end prints results and # of fails
@@ -58,6 +69,8 @@ def main():
     fail_count += test_num()
     fail_count += test_bignum()
     fail_count += test_sym()
+    fail_count += test_csv()
+    fail_count += test_data()
     return fail_count  # 0 is Success
 
 
