@@ -11,15 +11,18 @@ class Cols:
         self.x = {}  # independent columns
         self.y = {}  # dependent columns, has symbols
 
+        skipped_columns = []
         # iterate over names and return number asscoaited with name
         for c, s in enumerate(names):
 
-            skipped_columns = re.findall(":$", s)  # checks if column header ends in colon
+            match = re.findall(":$", s)  # checks if column header ends in colon
+            if match:
+                skipped_columns.append(s)
 
             if re.findall("[A-Z]", s):  # checks if column header starts with capital letter then Num
                 col = Num(c, s)
                 self.all[c] = col
-                if not skipped_columns:
+                if s not in skipped_columns:
                     if re.findall("[!+-]", s):
                         self.y[c] = col  # dependent columns (have symbols)
                     else:
@@ -27,7 +30,7 @@ class Cols:
             else:
                 col = Sym(c, s)
                 self.all[c] = col
-                if not skipped_columns:
+                if s not in skipped_columns:
                     if re.findall("[!+-]", s):
                         self.y[c] = col  # dependent columns (have symbols)
                     else:
