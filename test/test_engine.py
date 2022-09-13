@@ -6,6 +6,7 @@ import codecs
 from contextlib import closing
 import csv
 import requests
+from collections import OrderedDict
 
 
 # test if object exist
@@ -47,19 +48,27 @@ def test_sym():
 
 # test if we can read csv files
 def test_csv():
+    myd = OrderedDict()
+    row_list = []
     url = 'https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv'
     with closing(requests.get(url, stream=True)) as r:
         reader = csv.reader(codecs.iterdecode(r.iter_lines(), 'utf-8'))
         for row in reader:
-            print(row)
-
+            row_list.append(row)
+        return row_list
+        # use the first row to initialize the ordered dictionary keys
+        # myd[row_list[0][0]] = []
 
 # test if csv file loads into Data
 def test_data():
     d = Data(test_csv())
+    assert d.cols != None
+    """
+    d = Data(test_csv())
     if d.cols.y:
         print('data columns y:', d.cols.y)
-        return True
+    """
+    return True
 
 
 # executes each test and stores results at the end prints results and # of fails
