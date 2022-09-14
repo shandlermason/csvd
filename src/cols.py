@@ -24,17 +24,17 @@ class Cols:
                 self.all[c] = col
                 if s not in skipped_columns:
                     if re.findall("[!+-]", s):
-                        self.y[c] = col.name  # dependent columns (have symbols)
+                        self.y[c] = col  # dependent columns (have symbols)
                     else:
-                        self.x[c] = col.name  # independent columns (no symbols)
+                        self.x[c] = col  # independent columns (no symbols)
             else:
                 col = Sym(c, s)
                 self.all[c] = col
                 if s not in skipped_columns:
                     if re.findall("[!+-]", s):
-                        self.y[c] = col.name  # dependent columns (have symbols)
+                        self.y[c] = col  # dependent columns (have symbols)
                     else:
-                        self.x[c] = col.name  # independent columns (no symbols)
+                        self.x[c] = col  # independent columns (no symbols)
 
             # not sure if this is in the right spot
             if re.findall("!$", s):

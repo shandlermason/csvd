@@ -48,10 +48,7 @@ def test_sym():
 
 # test if we can read csv files
 def test_csv():
-    # myd = OrderedDict()
     row_list1 = []
-    row_list2 = []
-    cell_list = []
     url = 'https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv'
     with closing(requests.get(url, stream=True)) as r:
         reader = csv.reader(codecs.iterdecode(r.iter_lines(), 'utf-8'))
@@ -59,18 +56,8 @@ def test_csv():
             for cell in row:
                 settings.coerce(cell)
             row_list1.append(row)
-    return(row_list1)
-        # return row_list  # do not return this
-        # iterate over ever item in list and convert to data type
-        # return list of list of mixed values
-
-        # iterate over ever item in list and convert to data type
-        # call coerce for each cell in row_list then return list of list of mixed values
-
-
-
-        # use the first row to initialize the ordered dictionary keys
-        # myd[row_list[0][0]] = []
+    print(row_list1)
+    assert len(row_list1) != 0
 
 # test if csv file loads into Data
 def test_data():
@@ -92,7 +79,7 @@ def main():
     fail_count += test_bignum()
     fail_count += test_sym()
     fail_count += test_csv()
-    fail_count += test_data()
+    # fail_count += test_data()
     return fail_count  # 0 is Success
 
 
