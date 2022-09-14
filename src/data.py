@@ -48,23 +48,20 @@ class Data:
             self.rows.pop(0)
             # remove list 1 from overLL LIST
 
-        print(self.cols)
-        e = self.rows[0][0]
-        nr = defaultdict(list)
-        dd = defaultdict(list)
+        columnsd ={}
 
-        i = 0
-        for n in self.rows:
-            i = 0
-            for x in n:
-                nr[i].append(x)
-                i += 1
+       # assign key to each element in row list of list
+        # all column values organized by key
+        for r in self.rows: # one row
+            ky = 0
+            for i in r:
+                columnsd.setdefault(ky, []).append(i)
+                ky += 1
 
-        nr[0] = e
-
-        for d in (self.cols.x, self.cols.y, nr):
+        all_dict = defaultdict(list)
+        for d in (self.cols.x, self.cols.y, columnsd):
             for k, v in d.items():
-                dd[k].append(v)
+                all_dict[k].append(v)
 
 
 
