@@ -24,7 +24,14 @@ class Data:
         for r in xs:
             for c in r:
                 row = Row(c)
-                o = row.cells
+                for ky, todo in self.cols.x.items(): # and self.cols.y.items():
+                    rw = row.cells
+                    todo.add(rw) # rw works as int
+
+
+
+
+
 
 
         self.cols.y[0].add(1)
