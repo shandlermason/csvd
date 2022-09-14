@@ -58,11 +58,12 @@ def test_csv():
             row_list1.append(row)
     print(row_list1)
     assert len(row_list1) != 0
+    return row_list1
 
 # test if csv file loads into Data
 def test_data():
     d = Data(test_csv())
-    assert d.cols != None
+    # assert d.cols != None
     """
     d = Data(test_csv())
     if d.cols.y:

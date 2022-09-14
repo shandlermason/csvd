@@ -20,5 +20,11 @@ class Data:
         if self.cols is None:
             self.cols = Cols(xs[0])
             self.rows.pop(0)
+        # xs is 1 big list of many list excluding column headers
+        for r in xs:
+            for c in r:
+                row = Row(c)
+                o = row.cells
+
 
         self.cols.y[0].add(1)
