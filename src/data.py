@@ -21,15 +21,18 @@ class Data:
             self.cols = Cols(xs[0])
             self.rows.pop(0)
         # xs is 1 big list of many list excluding column headers
-        for r in xs:
-            for c in r:
-                row = Row(c)
-                for ky, todo_x in self.cols.x.items():  # and self.cols.y.items():
-                    rw = row.cells
-                    todo_x.add(rw)
-                for ky, todo_y in self.cols.y.items():  # and self.cols.y.items():
-                    rw = row.cells
-                    todo_y.add(rw)
+        # for r in xs:
+            """for ky, todo_x in self.cols.x.items():
+                rw = row.cells
+                todo_x.add(rw)
+            """
+            for ky, todo_y in self.cols.y.items():
+                for r in xs:
+                    for c in r:
+                        if r.index(c) == ky:
+                            row = Row(c)
+                            rw = row.cells
+                            todo_y.add(rw)
 
 
 
