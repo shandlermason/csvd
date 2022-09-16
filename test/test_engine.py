@@ -67,10 +67,9 @@ def test_csv():
 def test_data():
     d = Data(test_csv())
     for col in d.cols.y:
-        var = d.cols.y[col]
-        # pprint(vars(var))
-        # print(':at',' :hi', ':isSorted', ':lo', ':n', ':name', ':w')
-        print('dict', var.__dict__)
+        dd = d.cols.y[col].__dict__
+        print(':at', dd['at'], ':hi', dd['hi'], ':isSorted', dd['isSorted'], ':lo', dd['lo'], ':n', dd['n'],
+              ':name', dd['name'],':w', dd['w'])
     assert d.cols.y is not None
 
 
