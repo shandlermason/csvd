@@ -57,22 +57,20 @@ def test_csv():
                 temp = row.index(cell)
                 temp1 = settings.coerce(cell)
                 row[temp] = temp1
-                # replace cell with correct data type
             row_list1.append(row)
     print(row_list1)
     assert len(row_list1) != 0
     return row_list1
 
+
 # test if csv file loads into Data
 def test_data():
     d = Data(test_csv())
-    # assert d.cols != None
-    """
-    d = Data(test_csv())
-    if d.cols.y:
-        print('data columns y:', d.cols.y)
-    """
-    return True
+    pd = d.cols.y
+    var = pd[3]
+    for col in d.cols.y:
+        print(':at',' :hi', ':isSorted', ':lo', ':n', ':name', ':w')
+    assert d.cols.y is not None
 
 
 # executes each test and stores results at the end prints results and # of fails
@@ -83,7 +81,7 @@ def main():
     fail_count += test_bignum()
     fail_count += test_sym()
     fail_count += test_csv()
-    # fail_count += test_data()
+    fail_count += test_data()
     return fail_count  # 0 is Success
 
 

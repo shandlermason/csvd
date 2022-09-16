@@ -24,11 +24,12 @@ class Data:
         for r in xs:
             for c in r:
                 row = Row(c)
-                for ky, todo in self.cols.x.items(): # and self.cols.y.items():
+                for ky, todo_x in self.cols.x.items():  # and self.cols.y.items():
                     rw = row.cells
-                    todo.add(rw)
-
-
+                    todo_x.add(rw)
+                for ky, todo_y in self.cols.y.items():  # and self.cols.y.items():
+                    rw = row.cells
+                    todo_y.add(rw)
 
 
 
