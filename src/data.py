@@ -15,27 +15,20 @@ class Data:
             self.rows.append(row)
         self.add(self.rows)
 
-    # add row to Data
+    # add cell to appropriate column
     def add(self, xs):
         if self.cols is None:
             self.cols = Cols(xs[0])
             self.rows.pop(0)
-        # xs is 1 big list of many list excluding column headers
-        # for r in xs:
-            """for ky, todo_x in self.cols.x.items():
-                rw = row.cells
-                todo_x.add(rw)
-            """
-            for ky, todo_y in self.cols.y.items():
-                for r in xs:
-                    for c in r:
-                        if r.index(c) == ky:
-                            row = Row(c)
-                            rw = row.cells
-                            todo_y.add(rw)
-
-
-
-
-
-        # self.cols.y[0].add(1)
+        for ky, todo_x in self.cols.x.items():
+            for r in xs:
+                for c in r:
+                    if r.index(c) == ky:
+                        row = Row(c)
+                        todo_x.add(row.cells)
+        for ky, todo_y in self.cols.y.items():
+            for r in xs:
+                for c in r:
+                    if r.index(c) == ky:
+                        row = Row(c)
+                        todo_y.add(row.cells)
