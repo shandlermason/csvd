@@ -6,7 +6,7 @@ import codecs
 from contextlib import closing
 import csv
 import requests
-from collections import OrderedDict
+from pprint import pprint
 
 
 # test if object exist
@@ -66,10 +66,11 @@ def test_csv():
 # test if csv file loads into Data
 def test_data():
     d = Data(test_csv())
-    pd = d.cols.y
-    var = pd[3]
     for col in d.cols.y:
-        print(':at',' :hi', ':isSorted', ':lo', ':n', ':name', ':w')
+        var = d.cols.y[col]
+        # pprint(vars(var))
+        # print(':at',' :hi', ':isSorted', ':lo', ':n', ':name', ':w')
+        print('dict', var.__dict__)
     assert d.cols.y is not None
 
 
