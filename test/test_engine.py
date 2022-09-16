@@ -54,7 +54,9 @@ def test_csv():
         reader = csv.reader(codecs.iterdecode(r.iter_lines(), 'utf-8'))
         for row in reader:
             for cell in row:
-                x = settings.coerce(cell)
+                temp = row.index(cell)
+                temp1 = settings.coerce(cell)
+                row[temp] = temp1
                 # replace cell with correct data type
             row_list1.append(row)
     print(row_list1)
