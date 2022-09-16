@@ -26,7 +26,7 @@ class Data:
                 row = Row(c)
                 for ky, todo in self.cols.x.items(): # and self.cols.y.items():
                     rw = row.cells
-                    todo.add(rw) # rw works as int
+                    todo.add(rw)
 
 
 
@@ -34,4 +34,4 @@ class Data:
 
 
 
-        self.cols.y[0].add(1)
+        # self.cols.y[0].add(1)
