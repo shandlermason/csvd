@@ -23,7 +23,7 @@ def test_num():
     for i in range(1, 101):
         num.add(i)
     mid, div = num.mid(), num.div()
-    print(mid, div)
+    print(mid, '    ', div)
     assert (50 <= mid <= 52) and (30.5 < div < 32)
 
 
@@ -42,7 +42,7 @@ def test_sym():
     for x in {'1': "a", '2': "a", '3': "a", '4': "a", '5': "b", '6': "b", '7': "c"}.values():
         sym.add(x)
     mode, entropy = sym.mid(), sym.div()
-    # entropy = (1000 * entropy) // (1/1000)
+    print(':div', entropy, ':mid', mode)
     assert mode == "a" and 1.37 <= entropy <= 1.38
 
 
@@ -58,7 +58,9 @@ def test_csv():
                 temp1 = settings.coerce(cell)
                 row[temp] = temp1
             row_list1.append(row)
-    print(row_list1)
+        print('\n')
+        for line in row_list1[0:10]:
+            print(line)
     assert len(row_list1) != 0
     return row_list1
 
@@ -69,7 +71,7 @@ def test_data():
     for col in d.cols.y:
         dd = d.cols.y[col].__dict__
         print(':at', dd['at'], ':hi', dd['hi'], ':isSorted', dd['isSorted'], ':lo', dd['lo'], ':n', dd['n'],
-              ':name', dd['name'],':w', dd['w'])
+              ':name', dd['name'], ':w', dd['w'])
     assert d.cols.y is not None
 
 
@@ -87,3 +89,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
