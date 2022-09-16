@@ -8,10 +8,11 @@ from _collections import defaultdict
 
 class Data:
     def __init__(self, src):
+        rows_csv = settings.csv_function(src)
         self.cols = None  # summaries of data
         self.rows = []
 
-        for row in src:
+        for row in rows_csv:
             self.rows.append(row)
         self.add(self.rows)
 

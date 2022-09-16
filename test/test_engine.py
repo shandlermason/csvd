@@ -2,16 +2,13 @@ from src.num import Num
 from src.sym import Sym
 from src.data import Data
 from src import settings
-import codecs
-from contextlib import closing
-import csv
-import requests
-from pprint import pprint
 
 
 # test if object exist
 def test_the():
     if settings.the:
+        print('\n')
+        print(settings.the)
         return True
     else:
         print('the does not exist')
@@ -23,6 +20,7 @@ def test_num():
     for i in range(1, 101):
         num.add(i)
     mid, div = num.mid(), num.div()
+    print('\n')
     print(mid, '    ', div)
     assert (50 <= mid <= 52) and (30.5 < div < 32)
 
@@ -42,37 +40,30 @@ def test_sym():
     for x in {'1': "a", '2': "a", '3': "a", '4': "a", '5': "b", '6': "b", '7': "c"}.values():
         sym.add(x)
     mode, entropy = sym.mid(), sym.div()
+    print('\n')
     print(':div', entropy, ':mid', mode)
     assert mode == "a" and 1.37 <= entropy <= 1.38
 
 
 # test if we can read csv files
 def test_csv():
-    row_list1 = []
-    url = 'https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv'
-    with closing(requests.get(url, stream=True)) as r:
-        reader = csv.reader(codecs.iterdecode(r.iter_lines(), 'utf-8'))
-        for row in reader:
-            for cell in row:
-                temp = row.index(cell)
-                temp1 = settings.coerce(cell)
-                row[temp] = temp1
-            row_list1.append(row)
-        print('\n')
-        for line in row_list1[0:10]:
-            print(line)
-    assert len(row_list1) != 0
-    return row_list1
+    rows = settings.csv_function('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    print('\n')
+    for line in rows[0:10]:
+        print(line)
+    assert len(rows) != 0
 
 
 # test if csv file loads into Data
 def test_data():
-    d = Data(test_csv())
+    d = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    print('\n')
     for col in d.cols.y:
         dd = d.cols.y[col].__dict__
         print(':at', dd['at'], ':hi', dd['hi'], ':isSorted', dd['isSorted'], ':lo', dd['lo'], ':n', dd['n'],
               ':name', dd['name'], ':w', dd['w'])
     assert d.cols.y is not None
+
 
 
 # executes each test and stores results at the end prints results and # of fails

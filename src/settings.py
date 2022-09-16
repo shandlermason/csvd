@@ -1,5 +1,9 @@
 import math
 import re
+import codecs
+from contextlib import closing
+import requests
+import csv
 
 options = '''
 CSV : summarized csv file
@@ -34,13 +38,23 @@ def coerce(s):
             return s.strip()
 
 
-    # t = type(s)
-    # return t(s)
-
-
 def push(t, u):
     t[1 + len(t)] = u
     return u
+
+
+def csv_function(url):
+    row_list1 = []
+    url = url
+    with closing(requests.get(url, stream=True)) as r:
+        reader = csv.reader(codecs.iterdecode(r.iter_lines(), 'utf-8'))
+        for row in reader:
+            for cell in row:
+                temp = row.index(cell)
+                temp1 = coerce(cell)
+                row[temp] = temp1
+            row_list1.append(row)
+    return row_list1
 
 
 def rnd(x, places):
