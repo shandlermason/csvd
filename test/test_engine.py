@@ -72,8 +72,10 @@ def test_stats():
     x = data.cols.x
     mid = lambda col: Num.mid(col)
     div = lambda col: Num.div(col)
-    print("xmid", data.stats(2, data.cols.x, mid))
+    print('\n')
+    """print("xmid", data.stats(2, data.cols.x, mid))
     print("xdiv", data.stats(3, data.cols.x, div))
+    """
     print("ymid", data.stats(2, data.cols.y, mid))
     print("ydiv", data.stats(3, data.cols.y, div))
 
