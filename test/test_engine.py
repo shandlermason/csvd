@@ -31,6 +31,7 @@ def test_bignum():
         num.add(i)
     print('\n', num.nums())
     assert 32 == len(num._has)
+    settings.the['nums'] = 512
 
 
 # testing Sym mode and entropy
@@ -69,11 +70,11 @@ def test_stats():
         vals = data.cols.x[col]._has.values()
         md = Num.mid(vals) or Sym.mid(vals)
     """
-    x = data.cols.x
     mid = lambda col: Num.mid(col)
     div = lambda col: Num.div(col)
     print('\n')
-    """print("xmid", data.stats(2, data.cols.x, mid))
+    """
+    print("xmid", data.stats(2, data.cols.x, mid))
     print("xdiv", data.stats(3, data.cols.x, div))
     """
     print("ymid", data.stats(2, data.cols.y, mid))
