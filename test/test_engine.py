@@ -66,12 +66,19 @@ def test_data():
 
 def test_stats():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
-    """for col in data.cols.x:
-        vals = data.cols.x[col]._has.values()
-        md = Num.mid(vals) or Sym.mid(vals)
-    """
-    mid = lambda col: Num.mid(col)
-    div = lambda col: Num.div(col)
+
+    def mid(col):
+        if isinstance(col, Num):  # type check, if col is an instance of 'Num'
+            return Num.mid(col)
+        else:
+            return Sym.mid(col)
+
+    def div(col):
+        if isinstance(col, Num):
+            return Num.div(col)
+        else:
+            return Sym.div(col)
+
     print('\n')
     print("xmid", data.stats(2, data.cols.x, mid))
     print("xdiv", data.stats(3, data.cols.x, div))
