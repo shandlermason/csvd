@@ -7,8 +7,7 @@ from src import settings
 # test if object exist
 def test_the():
     if settings.the:
-        print('\n')
-        print(settings.the)
+        print('\n', settings.the)
         return True
     else:
         print('the does not exist')
@@ -20,8 +19,7 @@ def test_num():
     for i in range(1, 101):
         num.add(i)
     mid, div = num.mid(), num.div()
-    print('\n')
-    print(mid, '    ', div)
+    print('\n', mid, '    ', div)
     assert (50 <= mid <= 52) and (30.5 < div < 32)
 
 
@@ -31,7 +29,7 @@ def test_bignum():
     settings.the['nums'] = 32
     for i in range(1, 1001):
         num.add(i)
-    print(num.nums())
+    print('\n', num.nums())
     assert 32 == len(num._has)
 
 
@@ -41,8 +39,7 @@ def test_sym():
     for x in {'1': "a", '2': "a", '3': "a", '4': "a", '5': "b", '6': "b", '7': "c"}.values():
         sym.add(x)
     mode, entropy = sym.mid(), sym.div()
-    print('\n')
-    print(':div', entropy, ':mid', mode)
+    print('\n', ':div', entropy, ':mid', mode)
     assert mode == "a" and 1.37 <= entropy <= 1.38
 
 
