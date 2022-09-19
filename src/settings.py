@@ -58,7 +58,7 @@ def csv_function(url):
 
 
 def rnd(x, places):
-    mult = 10 ^ (places or 2)
+    mult = 10 ** (places or 2)
     return math.floor(x * mult + 0.5) / mult
 
 

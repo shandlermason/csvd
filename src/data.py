@@ -39,6 +39,8 @@ class Data:
         t = {}
         for ky, col in showCols.items():
             v = fun(col)
-            # v = type(v) == "float" and settings.rnd(v, places) or v
+            x = type(v)
+            if type(v) is float:
+                v = settings.rnd(v, places)
             t[col.name] = v
         return t
