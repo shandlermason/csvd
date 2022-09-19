@@ -40,19 +40,13 @@ class Num:
                     self._has[pos] = int(v)
 
     def div(self):
-        div_list = []
-        a = self.nums()
-        for v in a:
-            div_list.append(v)
+        div_list = self.nums()
         perc_index_90 = (90/100) * len(div_list)
         perc_index_10 = (10/100) * len(div_list)
         return (div_list[int(perc_index_90)] - div_list[int(perc_index_10)])/2.58
 
     def mid(self):
-        mid_list = []
-        a = self.nums()
-        for v in a:
-            mid_list.append(v)
+        mid_list = self.nums()
         len_of_list = len(mid_list)
         if len_of_list % 2 == 0:
             first_median = mid_list[len_of_list // 2]

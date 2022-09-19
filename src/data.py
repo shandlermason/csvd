@@ -33,3 +33,12 @@ class Data:
                     if r.index(c) == ky:
                         row = Row(c)
                         todo_y.add(row.cells)
+
+    def stats(self, places, showCols, fun):
+        showCols, fun = showCols or self.cols.y, fun or "mid"
+        t = {}
+        for ky, col in showCols.items():
+            v = fun(col)
+            v = type(v) == "float" and settings.rnd(v, places) or v
+            t[col.name] = v
+        return t

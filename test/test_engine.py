@@ -63,6 +63,21 @@ def test_data():
     assert d.cols.y is not None
 
 
+def test_stats():
+    data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    """for col in data.cols.x:
+        vals = data.cols.x[col]._has.values()
+        md = Num.mid(vals) or Sym.mid(vals)
+    """
+    x = data.cols.x
+    mid = lambda col: Num.mid(col)
+    div = lambda col: Num.div(col)
+    print("xmid", data.stats(2, data.cols.x, mid))
+    print("xdiv", data.stats(3, data.cols.x, div))
+    print("ymid", data.stats(2, data.cols.y, mid))
+    print("ydiv", data.stats(3, data.cols.y, div))
+
+
 # executes each test and stores results at the end prints results and # of fails
 def main():
     fail_count = 0
@@ -72,6 +87,7 @@ def main():
     fail_count += test_sym()
     fail_count += test_csv()
     fail_count += test_data()
+    fail_count += test_stats()
     return fail_count  # 0 is Success
 
 
