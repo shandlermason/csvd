@@ -18,7 +18,7 @@ class Num:
     #  Return sorted kept numbers
     def nums(self):
         if not self.isSorted:
-            sorted(self._has.items())  # sort by key or value?
+            self._has = sorted(self._has.values())  # sort by value
             self.isSorted = True
         return self._has
 
@@ -42,7 +42,7 @@ class Num:
     def div(self):
         div_list = []
         a = self.nums()
-        for v in a.values():
+        for v in a:
             div_list.append(v)
         perc_index_90 = (90/100) * len(div_list)
         perc_index_10 = (10/100) * len(div_list)
@@ -51,7 +51,7 @@ class Num:
     def mid(self):
         mid_list = []
         a = self.nums()
-        for v in a.values():
+        for v in a:
             mid_list.append(v)
         len_of_list = len(mid_list)
         if len_of_list % 2 == 0:

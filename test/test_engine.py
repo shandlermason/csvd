@@ -31,6 +31,7 @@ def test_bignum():
     settings.the['nums'] = 32
     for i in range(1, 1001):
         num.add(i)
+    print(num.nums())
     assert 32 == len(num._has)
 
 
@@ -63,7 +64,6 @@ def test_data():
         print(':at', dd['at'], ':hi', dd['hi'], ':isSorted', dd['isSorted'], ':lo', dd['lo'], ':n', dd['n'],
               ':name', dd['name'], ':w', dd['w'])
     assert d.cols.y is not None
-
 
 
 # executes each test and stores results at the end prints results and # of fails
