@@ -1,9 +1,6 @@
-import src.cols
-from src import cols
 from src import settings
 from src.row import Row
 from src.cols import Cols
-from _collections import defaultdict
 
 
 class Data:

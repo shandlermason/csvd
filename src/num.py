@@ -56,5 +56,12 @@ class Num:
             mid = mid_list[len_of_list // 2]
         return mid
 
+    # Normalized numbers 0..1. Everything else normalizes to itself.
+    def norm(self, n):
+        if n == '?':
+            return n
+        else:
+            (n-self.lo) / (self.hi-self.lo + 10 ** -32)
+
     def dist(self, v1, v2):
         return True
