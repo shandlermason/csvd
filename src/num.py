@@ -55,3 +55,7 @@ class Num:
         else:
             mid = mid_list[len_of_list // 2]
         return mid
+
+    def dist(self, v1, v2):
+        return True
+    
