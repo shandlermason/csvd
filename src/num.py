@@ -58,4 +58,3 @@ class Num:
 
     def dist(self, v1, v2):
         return True
-    

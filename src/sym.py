@@ -38,8 +38,8 @@ class Sym:
     # distance between two values
     def dist(self, v1, v2):
         if v1 == "?" and v2 == "?":  # ? = unknown
-            return 1  # am I handling unknown values correctly? What if v1 = ? and v2 = known value?
+            return 1  # 1 = maximum
         elif v1 == v2:  # same symbol
             return 0
         else:
-            return 1  # different symbols
+            return 1  # different symbols, assuming maximum distance when a value is unknown
