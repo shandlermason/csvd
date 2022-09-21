@@ -86,6 +86,10 @@ def test_stats():
     print("ydiv", data.stats(3, data.cols.y, div))
 
 
+def test_around():
+    return True
+
+
 # executes each test and stores results at the end prints results and # of fails
 def main():
     fail_count = 0
@@ -96,6 +100,7 @@ def main():
     fail_count += test_csv()
     fail_count += test_data()
     fail_count += test_stats()
+    fail_count += test_around()
     return fail_count  # 0 is Success
 
 

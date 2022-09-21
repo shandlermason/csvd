@@ -43,3 +43,6 @@ class Data:
                 v = settings.rnd(v, places)
             t[col.name] = v
         return t
+
+
+    # def dist(self, row1, row2):

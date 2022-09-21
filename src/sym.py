@@ -34,3 +34,12 @@ class Sym:
             if n > 0:
                 e = e - fun(n/self.n)
         return e
+
+    # distance between two values
+    def dist(self, v1, v2):
+        if v1 == "?" and v2 == "?":  # ? = unknown
+            return 1  # am I handling unknown values correctly? What if v1 = ? and v2 = known value?
+        elif v1 == v2:  # same symbol
+            return 0
+        else:
+            return 1  # different symbols
