@@ -1,8 +1,13 @@
+import os
+import sys
 from src.num import Num
 from src.sym import Sym
 from src.data import Data
 from src import settings
 
+TEST_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.abspath(os.path.join(TEST_DIR, os.pardir))
+sys.path.insert(0, PROJECT_DIR)
 
 # test if object exist
 def test_the():
