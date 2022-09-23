@@ -55,3 +55,12 @@ class Data:
                             r2 = Row(d)
                             d = d + col.dist(r1.cells, r2.cells) ** settings.the['p']
         return (d/len(self.cols.x))**(1/settings.the['p'])
+
+    # find nearest neighbor for each row
+    def around(self, row1):
+        def fun(row2):
+            row = row2
+            dist = self.dist(row1, row2)
+            return [row, dist]
+        d = {"dist": fun(self.rows)}
+        return sorted(d.items())
