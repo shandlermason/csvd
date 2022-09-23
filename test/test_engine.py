@@ -86,7 +86,13 @@ def test_stats():
     print("ydiv", data.stats(3, data.cols.y, div))
 
 
+# testing distance functions
 def test_around():
+    data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    around = data.around(data.rows[1])
+    i = [1, 380, 40]
+    for num in i:
+        print(around[num].dist, around[num].row.cells)
     return True
 
 
