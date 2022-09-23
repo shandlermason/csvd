@@ -86,6 +86,13 @@ def test_stats():
     print("ydiv", data.stats(3, data.cols.y, div))
 
 
+def test_data_distance():
+    data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    x = data.rows
+    between = data.dist(data.rows[1], data.rows[2])
+    print('distance between 1st and 2nd row ', between)
+
+"""
 # testing distance functions
 def test_around():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
@@ -94,7 +101,7 @@ def test_around():
     for num in i:
         print(around[num].dist, around[num].row.cells)
     return True
-
+"""
 
 # executes each test and stores results at the end prints results and # of fails
 def main():
@@ -106,7 +113,8 @@ def main():
     fail_count += test_csv()
     fail_count += test_data()
     fail_count += test_stats()
-    fail_count += test_around()
+    fail_count += test_data_distance()
+    # fail_count += test_around()
     return fail_count  # 0 is Success
 
 
