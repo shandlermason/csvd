@@ -63,5 +63,19 @@ class Num:
         else:
             (n-self.lo) / (self.hi-self.lo + 10 ** -32)
 
+    # distance between 2 values
     def dist(self, v1, v2):
-        return True
+        if v1 == '?' and v2 == '?':
+            return 1
+        v1, v2 = self.norm(v1), self.norm(v2)
+        if v1 == '?':
+            if v2 < 0.5:  # if ‘v1’ is unknown normalize to ‘v2’
+                return 0
+            else:
+                return 1
+        if v2 == '?':
+            if v1 < 0.5:
+                return 0
+            else:
+                return 1
+        return abs(v1-v2)
