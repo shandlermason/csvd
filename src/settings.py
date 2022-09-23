@@ -16,6 +16,7 @@ OPTIONS:
 −f −−file file with csv data = ../data/auto93.csv
 −h −−help show help = false
 −n −−nums number of nums to keep = 512
+-p --p distance calculation coefficient = 2
 −s −−seed random number seed = 10019
 S −−seperator field seperator = ,]]
 

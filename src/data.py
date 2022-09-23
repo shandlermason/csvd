@@ -1,6 +1,8 @@
 from src import settings
 from src.row import Row
 from src.cols import Cols
+from src.num import Num
+from src.sym import Sym
 
 
 class Data:
@@ -41,5 +43,15 @@ class Data:
             t[col.name] = v
         return t
 
-
-    # def dist(self, row1, row2):
+    # distance between rows (returns 0..1). For unknown values, assume max distance.
+    def dist(self, row1, row2):
+        d = 0
+        for ky, col in self.cols.x.items():
+            if isinstance(col, Num):  # type check, if col is an instance of 'Num'
+                for x, y in row1 and row2:
+                    for c, d in x, y:
+                        if x.index(c) == ky and y.index(d) == ky:
+                            r1 = Row(c)
+                            r2 = Row(d)
+                            d = d + col.dist(r1.cells, r2.cells) ** settings.the['p']
+        return (d/len(self.cols.x))**(1/settings.the['p'])
