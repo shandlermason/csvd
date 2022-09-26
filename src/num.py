@@ -61,7 +61,7 @@ class Num:
         if n == '?':
             return n
         else:
-            (n-self.lo) / (self.hi-self.lo + 10 ** -32)
+            return (n-self.lo) / (self.hi-self.lo + 10 ** -32)
 
     # distance between 2 values
     def dist(self, v1, v2):

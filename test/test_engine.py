@@ -1,6 +1,7 @@
 from src.num import Num
 from src.sym import Sym
 from src.data import Data
+from src.row import Row
 from src import settings
 
 
@@ -89,7 +90,8 @@ def test_stats():
 def test_data_distance():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     x = data.rows
-    between = data.dist(data.rows[1], data.rows[2])
+    r = Row()
+    between = data.dist(data.rows[0], data.rows[1])
     print('distance between 1st and 2nd row ', between)
 
 """

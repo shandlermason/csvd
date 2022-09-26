@@ -23,8 +23,8 @@ class Data:
             return True
             # self.rows.pop(0)
 
-
         row = Row(xs)
+        # row.cells
         self.rows.append(row)
         for _, col in self.cols.x.items():
             col.add(row.cells[col.at])
@@ -52,6 +52,7 @@ class Data:
                         row = Row(c)
                         todo_y.add(row.cells)
             """
+
     def stats(self, places, showCols, fun):
         showCols, fun = showCols or self.cols.y, fun or "mid"
         t = {}
@@ -65,19 +66,10 @@ class Data:
     # distance between rows (returns 0..1). For unknown values, assume max distance.
     def dist(self, row1, row2):
         d = 0
-        x = self.rows[1]
-        x = row1.cells
         for _, col in self.cols.x.items():
-            col.dist(row1.cells[col.at], row2.cells[col.at])
+            d = d + col.dist(row1.cells[col.at], row2.cells[col.at])
+        return (d/len(self.cols.x)) ** (1/settings.the['p'])
 
-            if isinstance(col, Num):  # type check, if col is an instance of 'Num'
-                for x, y in row1 and row2:
-                    for c, d in x, y:
-                        if x.index(c) == ky and y.index(d) == ky:
-                            r1 = Row(c)
-                            r2 = Row(d)
-                            d = d + col.dist(r1.cells[col.at], r2.cells) ** settings.the['p']
-        return (d/len(self.cols.x))**(1/settings.the['p'])
 
 """
     # find nearest neighbor for each row
