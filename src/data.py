@@ -39,13 +39,11 @@ class Data:
         return (d/len(self.cols.x)) ** (1/2)  # regex must be fixed to work with: (1/settings.the['p'])
 
     # What is around? - tell me the 5 objects in the room around you and your distance to them
-"""
     # find nearest neighbor for each row
     def around(self, row1):
-        def fun(row2):
-            row = row2
+        # function that returns distance to 'row1'
+        def fun(row2):  # compares the first row to itself
             dist = self.dist(row1, row2)
-            return [row, dist]
-        d = {"dist": fun(self.rows)}
-        return sorted(d.items())
-"""
+            return dist
+        # Sort `rows` by distance to `row1`
+        return sorted(self.rows, key=fun)
