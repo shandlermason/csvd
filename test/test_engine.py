@@ -41,7 +41,7 @@ def test_sym():
     for x in {'1': "a", '2': "a", '3': "a", '4': "a", '5': "b", '6': "b", '7': "c"}.values():
         sym.add(x)
     mode, entropy = sym.mid(), sym.div()
-    print('\n', ':div', entropy, ':mid', mode)
+    print('\n:div', entropy, ':mid', mode)
     assert mode == "a" and 1.37 <= entropy <= 1.38
 
 
@@ -80,8 +80,7 @@ def test_stats():
         else:
             return Sym.div(col)
 
-    print('\n')
-    print("xmid", data.stats(2, data.cols.x, mid))
+    print("\nxmid", data.stats(2, data.cols.x, mid))
     print("xdiv", data.stats(3, data.cols.x, div))
     print("ymid", data.stats(2, data.cols.y, mid))
     print("ydiv", data.stats(3, data.cols.y, div))
@@ -90,12 +89,11 @@ def test_stats():
 def test_data_distance():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     between = data.dist(data.rows[0], data.rows[1])
-    print('\n distance between 1st and 2nd row ', between)
+    print('\ndistance between 1st and 2nd row ', between)
     assert 0 <= between <= 1
 
 
 """
-# testing distance functions
 def test_around():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[1])

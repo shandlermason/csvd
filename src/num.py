@@ -57,6 +57,7 @@ class Num:
         return mid
 
     # Normalized numbers 0..1. Everything else normalizes to itself.
+    # Why? - can compare rocket speed to shoe size, change from comparing apples and oranges to apples and apples
     def norm(self, n):
         if n == '?':
             return n
