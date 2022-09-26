@@ -1,57 +1,25 @@
 from src import settings
 from src.row import Row
 from src.cols import Cols
-from src.num import Num
-from src.sym import Sym
 
 
 class Data:
     def __init__(self, src):
-        rows_csv = settings.csv_function(src)
         self.cols = None  # summaries of data
-        self.rows1 = {}
         self.rows = []
-
-        for row in rows_csv:
-            self.add(row)
+        [self.add(row) for row in settings.csv_function(src)]
 
     # add cell to appropriate column
     def add(self, xs):
-        x = xs
-        if self.cols is None:
-            self.cols = Cols(xs)
-            return True
-            # self.rows.pop(0)
-
-        row = Row(xs)
-        # row.cells
-        self.rows.append(row)
-        for _, col in self.cols.x.items():
-            col.add(row.cells[col.at])
-        for _, col in self.cols.y.items():
-            col.add(row.cells[col.at])
-            """
-            col.add()
-            for _, col in enumerate(todo):
-                y = row.cells[col.at]
+        if self.cols:
+            row = Row(xs)
+            self.rows.append(row)
+            for _, col in self.cols.x.items():
                 col.add(row.cells[col.at])
-
-        for ky, todo_x in self.cols.x.items():
-            for r in xs:
-                for c in r:
-                    if r.index(c) == ky:
-                        # row = Row(c)
-                        row2 = Row(r)
-                        todo_x.add(row2.cells)
-                        # todo_x.add(row2)
-        for ky, todo_y in self.cols.y.items():
-            for r in xs:
-                for c in r:
-                    if r.index(c) == ky:
-                        # row = Row(r)
-                        row = Row(c)
-                        todo_y.add(row.cells)
-            """
+            for _, col in self.cols.y.items():
+                col.add(row.cells[col.at])
+        else:
+            self.cols = Cols(xs)
 
     def stats(self, places, showCols, fun):
         showCols, fun = showCols or self.cols.y, fun or "mid"
@@ -68,7 +36,7 @@ class Data:
         d = 0
         for _, col in self.cols.x.items():
             d = d + col.dist(row1.cells[col.at], row2.cells[col.at])
-        return (d/len(self.cols.x)) ** (1/settings.the['p'])
+        return (d/len(self.cols.x)) ** (1/2)  # regex must be fixed to work with: (1/settings.the['p'])
 
 
 """
