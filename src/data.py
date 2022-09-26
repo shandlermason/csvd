@@ -35,10 +35,10 @@ class Data:
     def dist(self, row1, row2):
         d = 0
         for _, col in self.cols.x.items():
-            d = d + col.dist(row1.cells[col.at], row2.cells[col.at])
+            d = d + col.dist(row1.cells[col.at], row2.cells[col.at]) ** 2  # settings.the['p']
         return (d/len(self.cols.x)) ** (1/2)  # regex must be fixed to work with: (1/settings.the['p'])
 
-
+    # What is around? - tell me the 5 objects in the room around you and your distance to them
 """
     # find nearest neighbor for each row
     def around(self, row1):

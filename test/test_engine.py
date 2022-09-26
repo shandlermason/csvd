@@ -89,10 +89,10 @@ def test_stats():
 
 def test_data_distance():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
-    x = data.rows
-    r = Row()
     between = data.dist(data.rows[0], data.rows[1])
-    print('distance between 1st and 2nd row ', between)
+    print('\n distance between 1st and 2nd row ', between)
+    assert 0 <= between <= 1
+
 
 """
 # testing distance functions
