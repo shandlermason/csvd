@@ -93,15 +93,13 @@ def test_data_distance():
     assert 0 <= between <= 1
 
 
-"""
 def test_around():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
-    around = data.around(data.rows[1])
-    i = [1, 380, 40]
-    for num in i:
-        print(around[num].dist, around[num].row.cells)
+    around = data.around(data.rows[0])
+    for i in [1, 380, 40]:
+        print('\n', around[i].dist, around[i].row.cells)
     return True
-"""
+
 
 # executes each test and stores results at the end prints results and # of fails
 def main():
@@ -114,7 +112,7 @@ def main():
     fail_count += test_data()
     fail_count += test_stats()
     fail_count += test_data_distance()
-    # fail_count += test_around()
+    fail_count += test_around()
     return fail_count  # 0 is Success
 
 
