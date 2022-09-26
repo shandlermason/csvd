@@ -45,5 +45,5 @@ class Data:
         def fun(row2):  # compares the first row to itself
             dist = self.dist(row1, row2)
             return dist
-        # Sort `rows` by distance to `row1`
+        # return sorted `rows` by least to the greatest distance from `row1`
         return sorted(self.rows, key=fun)
