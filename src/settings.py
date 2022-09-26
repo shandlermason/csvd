@@ -18,7 +18,7 @@ OPTIONS:
 −n −−nums number of nums to keep = 512
 -p --p distance calculation coefficient = 2
 −s −−seed random number seed = 10019
-S −−seperator field seperator = ,]]
+-S −−seperator field seperator = ,]]
 
 −− Function argument conventions:
 −− 1. two blanks denote optionas, four blanls denote locals:
