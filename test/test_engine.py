@@ -67,18 +67,12 @@ def test_data():
 
 def test_stats():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
-
+    print(data.cols.all[1].mid())
     def mid(col):
-        if isinstance(col, Num):  # type check, if col is an instance of 'Num'
-            return Num.mid(col)
-        else:
-            return Sym.mid(col)
+        return col.mid()
 
     def div(col):
-        if isinstance(col, Num):
-            return Num.div(col)
-        else:
-            return Sym.div(col)
+        return col.div()
 
     print("\nxmid", data.stats(2, data.cols.x, mid))
     print("xdiv", data.stats(3, data.cols.x, div))
@@ -91,13 +85,15 @@ def test_data_distance():
     between = data.dist(data.rows[0], data.rows[1])
     print('\ndistance between 1st and 2nd row ', between)
     assert 0 <= between <= 1
+    print(sorted([round(data.dist(data.rows[0], row), 2) for row in data.rows]))
 
 
 def test_around():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[0])
-    for i in [1, 380, 40]:
-        print('\n', around[i].dist, around[i].row.cells)
+    print(around[1].cells)
+    for i in range(1, 380, 40):
+        print(i, around[i].cells) #around[i].dist, around[i].cells)
     return True
 
 
