@@ -95,11 +95,13 @@ def test_around():
         print(i, around[i].cells)
     return True
 
+
 def test_nearest_neighbor():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[0])
-
-
+    knn = data.nearest_neighbor(around)
+    print('\nk = 3 : ', *knn[0:3], '\nk = 5 : ', *knn[0:5], '\nk = 10 : ', *knn[0:10], sep="\n")
+    assert data.rows[0] not in knn
 
 # executes each test and stores results at the end prints results and # of fails
 def main():
