@@ -50,5 +50,5 @@ class Data:
 
     # exclude list in around at index = 0
     def nearest_neighbor(self, sorted_list_of_rows):
-        index = 0
-        return sorted_list_of_rows[:index] + sorted_list_of_rows[index + 1:]
+        # slice after element at index = 0
+        return sorted_list_of_rows[1:]

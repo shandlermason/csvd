@@ -84,13 +84,13 @@ def test_data_distance():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     between = data.dist(data.rows[0], data.rows[1])
     assert 0 <= between <= 1
-    print(sorted([round(data.dist(data.rows[0], row), 2) for row in data.rows]))
+    print("\n", sorted([round(data.dist(data.rows[0], row), 2) for row in data.rows]))
 
 
 def test_around():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[0])
-    print('around', around[0].cells)
+    print('\nrow at index = 0 ', around[0].cells, "\n")
     for i in range(1, 380, 40):
         print(i, around[i].cells)
     return True
@@ -100,8 +100,19 @@ def test_nearest_neighbor():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[0])
     knn = data.nearest_neighbor(around)
-    print('\nk = 3 : ', *knn[0:3], '\nk = 5 : ', *knn[0:5], '\nk = 10 : ', *knn[0:10], sep="\n")
-    assert data.rows[0] not in knn
+
+    knn3 = [knn[i].cells for i in range(0, 3)]  # k=3 nearest neighbors
+    knn3_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 3)]  # dist: row at index 0 to row to doublecheck
+
+    knn5 = [knn[i].cells for i in range(0, 5)]
+    knn5_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 5)]
+
+    knn10 = [knn[i].cells for i in range(0, 10)]
+    knn10_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 10)]
+    print('\nk = 3', "\n".join("{} {}".format(x, y) for x, y in zip(knn3, knn3_dist)), '\nk = 5',
+          "\n".join("{} {}".format(x, y) for x, y in zip(knn5, knn5_dist)), '\nk = 10',
+          "\n".join("{} {}".format(x, y) for x, y in zip(knn10, knn10_dist)), sep="\n")
+    assert around[0] not in knn
 
 # executes each test and stores results at the end prints results and # of fails
 def main():
