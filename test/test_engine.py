@@ -67,7 +67,7 @@ def test_data():
 
 def test_stats():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
-    print(data.cols.all[1].mid())
+
     def mid(col):
         return col.mid()
 
@@ -83,7 +83,6 @@ def test_stats():
 def test_data_distance():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     between = data.dist(data.rows[0], data.rows[1])
-    print('\ndistance between 1st and 2nd row ', between)
     assert 0 <= between <= 1
     print(sorted([round(data.dist(data.rows[0], row), 2) for row in data.rows]))
 
@@ -91,10 +90,15 @@ def test_data_distance():
 def test_around():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[0])
-    print(around[1].cells)
+    print('around', around[0].cells)
     for i in range(1, 380, 40):
-        print(i, around[i].cells) #around[i].dist, around[i].cells)
+        print(i, around[i].cells)
     return True
+
+def test_nearest_neighbor():
+    data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    around = data.around(data.rows[0])
+
 
 
 # executes each test and stores results at the end prints results and # of fails

@@ -47,3 +47,8 @@ class Data:
             return dist
         # return sorted `rows` by least to the greatest distance from `row1`
         return sorted(self.rows, key=fun)
+
+    # exclude list in around at index = 0
+    def nearest_neighbor(self, sorted_list_of_rows):
+        index = 0
+        return sorted_list_of_rows[:index] + sorted_list_of_rows[index + 1:]
