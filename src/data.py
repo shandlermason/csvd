@@ -1,7 +1,7 @@
 from src import settings
 from src.row import Row
 from src.cols import Cols
-
+from src.sym import Sym
 
 class Data:
     def __init__(self, src):
@@ -52,3 +52,12 @@ class Data:
     def nearest_neighbor(self, sorted_list_of_rows):
         # slice after element at index = 0
         return sorted_list_of_rows[1:]
+
+    # finds the symbols seen in 5 nearest neighbors
+    def classifier(self, k5):
+        slist = []
+        for _, col in self.cols.all.items():
+            if isinstance(col, Sym):
+                for ro in k5:
+                    slist.append(ro.cells[col.at])
+        return slist

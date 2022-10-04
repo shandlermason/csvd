@@ -101,18 +101,36 @@ def test_nearest_neighbor():
     around = data.around(data.rows[0])
     knn = data.nearest_neighbor(around)
 
-    knn3 = [knn[i].cells for i in range(0, 3)]  # k=3 nearest neighbors
+    knn3 = [knn[i] for i in range(0, 3)]  # k=3 nearest neighbors
     knn3_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 3)]  # dist: row at index 0 to row to doublecheck
 
-    knn5 = [knn[i].cells for i in range(0, 5)]
+    knn5 = [knn[i] for i in range(0, 5)]
     knn5_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 5)]
 
-    knn10 = [knn[i].cells for i in range(0, 10)]
+    knn10 = [knn[i] for i in range(0, 10)]
     knn10_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 10)]
-    print('\nk = 3', "\n".join("{} {}".format(x, y) for x, y in zip(knn3, knn3_dist)), '\nk = 5',
-          "\n".join("{} {}".format(x, y) for x, y in zip(knn5, knn5_dist)), '\nk = 10',
-          "\n".join("{} {}".format(x, y) for x, y in zip(knn10, knn10_dist)), sep="\n")
+
+    print('\nk = 3', "\n".join("{} {}".format(x, y) for x, y in zip([r.cells for r in knn3], knn3_dist)), '\nk = 5',
+          "\n".join("{} {}".format(x, y) for x, y in zip([r.cells for r in knn5], knn5_dist)), '\nk = 10',
+          "\n".join("{} {}".format(x, y) for x, y in zip([r.cells for r in knn10], knn10_dist)), sep="\n")
     assert around[0] not in knn
+
+
+# takes the symbols seen in 5 nn and finds the most common symbol
+def test_classifier():
+    data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    around = data.around(data.rows[0])
+    knn = data.nearest_neighbor(around)
+    knn5 = [knn[i] for i in range(0, 5)]
+
+    s = data.classifier(knn5)
+    sym = Sym()
+    for n in s:
+        sym.add(n)
+    mode = sym.mid()
+
+    print('\nMost common symbol seen in k=5 is ', mode)
+
 
 # executes each test and stores results at the end prints results and # of fails
 def main():
@@ -126,6 +144,8 @@ def main():
     fail_count += test_stats()
     fail_count += test_data_distance()
     fail_count += test_around()
+    fail_count += test_nearest_neighbor()
+    fail_count += test_classifier()
     return fail_count  # 0 is Success
 
 
