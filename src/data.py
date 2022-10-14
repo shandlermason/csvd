@@ -67,18 +67,22 @@ class Data:
                     s_list.append(ro.cells[col.at])
         return s_list
 
-    # find average acceleration of 5 nearest neighbors
-    def regression(self, k_val, col_loc):
+    # find average of 5 nearest neighbors in dependent column
+    def predicted(self, k_val, col_loc):
         knn_for_val = self.nearest_neighbor(self.around(self.rows[0]), k_val)
-        a_list = []
+        acc_list = []
         for row in knn_for_val:
-            a_list.append(row.cells[col_loc])
-        return sum(a_list) / len(a_list)
+            acc_list.append(row.cells[col_loc])
+        return sum(acc_list) / len(acc_list)
 
     # find magnitude relative error
-    def error(self, col_loc):
-        # magnitude relative error = abs(predicted - actual)/actual
+    def error(self, k_val, col_loc):
+        # finds actual value in 6th nearest neighbor
+        knn_val = self.nearest_neighbor(self.around(self.rows[0]), k_val+1)  # k=6
+        actual = knn_val[k_val+1].cells[col_loc]  # column value in k=6
 
-        # find actual value in 6th nearest neighbor
-        x = self.nearest_neighbor(self.around(self.rows[0]), 6)
+        # the predicted value is the average of the values of its k nearest neighbors
+        predicted = self.predicted(5, 4)
 
+        # magnitude relative error
+        return abs(predicted - actual) / actual
