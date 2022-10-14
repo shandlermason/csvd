@@ -123,11 +123,10 @@ def test_classifier():
 # regression for numerics
 def test_regression():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
-    # report average acceleration of 5 nearest neighbors
-    around = data.around(data.rows[0])
-    knn5 = data.nearest_neighbor(around, 5)
+    # report average acceleration of k = 5
+    k = 5
     col_at = 4
-    avg = data.regression(knn5, col_at)
+    avg = data.regression(k, col_at)
     print("Average Acc for k=5: ", avg)
 
     # report error of numeric variable

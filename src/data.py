@@ -68,13 +68,17 @@ class Data:
         return s_list
 
     # find average acceleration of 5 nearest neighbors
-    def regression(self, k5, col_loc):
+    def regression(self, k_val, col_loc):
+        knn_for_val = self.nearest_neighbor(self.around(self.rows[0]), k_val)
         a_list = []
-        for row in k5:
+        for row in knn_for_val:
             a_list.append(row.cells[col_loc])
         return sum(a_list) / len(a_list)
 
-    #find magnitude relative error
-    def error(self):
+    # find magnitude relative error
+    def error(self, col_loc):
         # magnitude relative error = abs(predicted - actual)/actual
+
+        # find actual value in 6th nearest neighbor
         x = self.nearest_neighbor(self.around(self.rows[0]), 6)
+
