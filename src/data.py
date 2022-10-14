@@ -53,17 +53,18 @@ class Data:
         # slice after element at index = 0
         knn = sorted_list_of_rows[1:]
         # find k nearest neighbors
-        return [knn[i] for i in range(0, k_val)]
+        return [knn[i].cells for i in range(0, k_val)]
 
     '''find dist: row at index 0 to row to doublecheck - 
     [round(self.dist(self.rows[0], knn[i]), 2) for i in range(0, k_val)]'''
 
     # finds the symbols seen in 5 nearest neighbors
-    def classifier(self, k5):
+    def classifier(self, k_val):
+        knn_for_val = self.nearest_neighbor(self.around(self.rows[0]), k_val)
         s_list = []
         for _, col in self.cols.all.items():
             if isinstance(col, Sym):
-                for ro in k5:
+                for ro in knn_for_val:
                     s_list.append(ro.cells[col.at])
         return s_list
 
