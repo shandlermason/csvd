@@ -132,6 +132,21 @@ def test_classifier():
     print('\nMost common symbol seen in k=5 is ', mode)
 
 
+# report average acceleration of 5 nearest neighbors
+def test_regression():
+    data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
+    around = data.around(data.rows[0])
+    knn = data.nearest_neighbor(around)
+    knn5 = [knn[i] for i in range(0, 5)]
+
+    col_at = 4
+
+    avg = data.regression(knn5, data.cols.y, col_at)
+
+    print("Average Acc for k=5: ", avg)
+    # mre = data.error(knn5, col_name, avg)
+
+
 # executes each test and stores results at the end prints results and # of fails
 def main():
     fail_count = 0

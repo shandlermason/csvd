@@ -55,9 +55,18 @@ class Data:
 
     # finds the symbols seen in 5 nearest neighbors
     def classifier(self, k5):
-        slist = []
+        s_list = []
         for _, col in self.cols.all.items():
             if isinstance(col, Sym):
                 for ro in k5:
-                    slist.append(ro.cells[col.at])
-        return slist
+                    s_list.append(ro.cells[col.at])
+        return s_list
+
+    # find average acceleration of 5 nearest neighbors
+    def regression(self, k5, col_info, col_loc):
+        a_list = []
+        for x in col_info:
+            if col_info.at == col_loc:
+                for row in k5:
+                    a_list.append(row.cells[col_info.at])
+        return sum(a_list) / len(a_list)
