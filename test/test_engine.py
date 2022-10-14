@@ -101,7 +101,11 @@ def test_nearest_neighbor():
     around = data.around(data.rows[0])
     k = [3, 5, 10]
     for x in k:
-        print('k=', x, '\n', data.nearest_neighbor(around, x))
+        y = data.nearest_neighbor(around, x)
+        print('\nk=', x, '\n')
+        for i in range(0, len(y)):
+            print(y[i].cells)
+
 
 # FIX THIS
 # takes the symbols seen in 5 nn and finds the most common symbol

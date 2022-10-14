@@ -53,7 +53,7 @@ class Data:
         # slice after element at index = 0
         knn = sorted_list_of_rows[1:]
         # find k nearest neighbors
-        return [knn[i].cells for i in range(0, k_val)]
+        return [knn[i] for i in range(0, k_val)]
 
     '''find dist: row at index 0 to row to doublecheck - 
     [round(self.dist(self.rows[0], knn[i]), 2) for i in range(0, k_val)]'''
