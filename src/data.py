@@ -80,10 +80,10 @@ class Data:
     def error(self, k_val, col_loc):
         # finds actual value in 6th nearest neighbor
         knn_val = self.nearest_neighbor(self.around(self.rows[0]), k_val+1)  # k=6
-        actual = knn_val[k_val+1].cells[col_loc]  # column value in k=6
+        actual = knn_val[k_val].cells[col_loc]  # column value in k=6
 
         # the predicted value is the average of the values of its k nearest neighbors
         predicted = self.predicted(5, 4)
 
         # magnitude relative error
-        return abs(predicted - actual) / actual
+        return round(abs(predicted - actual) / actual, 3)

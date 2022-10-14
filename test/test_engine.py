@@ -118,7 +118,7 @@ def test_classifier():
         sym.add(n)
     mode = sym.mid()
 
-    print('\nMost common symbol seen in k=5 is ', mode)
+    print('\nMost common symbol seen in k=', k, 'is', mode)
 
 
 # regression for numerics
