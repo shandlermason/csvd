@@ -49,9 +49,11 @@ class Data:
         return sorted(self.rows, key=fun)
 
     # exclude list in around at index = 0
-    def nearest_neighbor(self, sorted_list_of_rows):
+    def nearest_neighbor(self, sorted_list_of_rows, k_val):
         # slice after element at index = 0
-        return sorted_list_of_rows[1:]
+        knn = sorted_list_of_rows[1:]
+        # find k nearest neighbors, find dist: row at index 0 to row to doublecheck
+        return [knn[i] for i in range(0, k_val)], [round(self.dist(self.rows[0], knn[i]), 2) for i in range(0, k_val)]
 
     # finds the symbols seen in 5 nearest neighbors
     def classifier(self, k5):
@@ -62,6 +64,7 @@ class Data:
                     s_list.append(ro.cells[col.at])
         return s_list
 
+
     # find average acceleration of 5 nearest neighbors
     def regression(self, k5, col_info, col_loc):
         a_list = []
@@ -70,3 +73,7 @@ class Data:
                 for row in k5:
                     a_list.append(row.cells[col_info.at])
         return sum(a_list) / len(a_list)
+
+    #find magnitude relative error
+    def error(self, k5):
+        # magnitude relative error = abs(predicted - actual)/actual

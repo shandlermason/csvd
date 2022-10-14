@@ -99,21 +99,9 @@ def test_around():
 def test_nearest_neighbor():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[0])
-    knn = data.nearest_neighbor(around)
-
-    knn3 = [knn[i] for i in range(0, 3)]  # k=3 nearest neighbors
-    knn3_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 3)]  # dist: row at index 0 to row to doublecheck
-
-    knn5 = [knn[i] for i in range(0, 5)]
-    knn5_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 5)]
-
-    knn10 = [knn[i] for i in range(0, 10)]
-    knn10_dist = [round(data.dist(data.rows[0], knn[i]), 2) for i in range(0, 10)]
-
-    print('\nk = 3', "\n".join("{} {}".format(x, y) for x, y in zip([r.cells for r in knn3], knn3_dist)), '\nk = 5',
-          "\n".join("{} {}".format(x, y) for x, y in zip([r.cells for r in knn5], knn5_dist)), '\nk = 10',
-          "\n".join("{} {}".format(x, y) for x, y in zip([r.cells for r in knn10], knn10_dist)), sep="\n")
-    assert around[0] not in knn
+    k = [3, 5, 10]
+    for x in k:
+        print('k=', x, '\n', data.nearest_neighbor(around, x))
 
 
 # takes the symbols seen in 5 nn and finds the most common symbol
@@ -132,18 +120,19 @@ def test_classifier():
     print('\nMost common symbol seen in k=5 is ', mode)
 
 
-# report average acceleration of 5 nearest neighbors
+# regression for numerics
 def test_regression():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     around = data.around(data.rows[0])
     knn = data.nearest_neighbor(around)
     knn5 = [knn[i] for i in range(0, 5)]
 
+    # report average acceleration of 5 nearest neighbors
     col_at = 4
-
     avg = data.regression(knn5, data.cols.y, col_at)
-
     print("Average Acc for k=5: ", avg)
+
+    # report error of numeric variable
     # mre = data.error(knn5, col_name, avg)
 
 
