@@ -1,7 +1,6 @@
 from src.num import Num
 from src.sym import Sym
 from src.data import Data
-from src.row import Row
 from src import settings
 
 
@@ -160,7 +159,7 @@ def main():
     fail_count += test_regression()
     return fail_count  # 0 is Success
 
-
+'''
 if __name__ == "__main__":
     main()
-    
+'''

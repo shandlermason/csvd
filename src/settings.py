@@ -67,7 +67,7 @@ the = {}
 # have to fix regex to work wth 'p'
 group1 = re.findall(r"[−][−]([\w]+)", options)  # word after the 2 dashes
 group2 = re.findall(r"((?<= = ).*)", options)  # what is after equal sign
-print(group1)
+
 for k in group1:
     for x in group2:
         the[k] = coerce(x)
