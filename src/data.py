@@ -68,15 +68,25 @@ class Data:
             dist = self.dist(row1, row2)
             return dist
         # return sorted `rows` by least to the greatest distance from `row1`
-        return sorted(self.train_rows, key=fun) or sorted(self.test_rows, key=fun)
+        if row1 in self.train_rows:
+            return sorted(self.train_rows, key=fun)
+        if row1 in self.test_rows:
+            return sorted(self.test_rows, key=fun)
 
     # exclude list in around at index = 0
-    def nearest_neighbor(self, k_val):
-        # slice after element at index = 0
-        sorted_list_of_rows = self.around(self.train_rows[0] or self.test_rows[0])
-        knn = sorted_list_of_rows[1:]
-        # find k nearest neighbors
-        return [knn[i] for i in range(0, k_val)]
+    def nearest_neighbor(self, k_val, keyword):
+        if keyword == "train":
+            # slice after element at index = 0
+            sorted_list_of_rows = self.around(self.train_rows[0])
+            knn = sorted_list_of_rows[1:]
+            # find k nearest neighbors
+            return [knn[i].cells for i in range(0, k_val)]
+        if keyword == "test":
+            # slice after element at index = 0
+            sorted_list_of_rows = self.around(self.test_rows[0])
+            knn = sorted_list_of_rows[1:]
+            # find k nearest neighbors
+            return [knn[i].cells for i in range(0, k_val)]
 
     '''find dist: row at index 0 to row to doublecheck - 
     [round(self.dist(self.rows[0], knn[i]), 2) for i in range(0, k_val)]'''

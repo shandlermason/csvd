@@ -14,7 +14,8 @@ def main():
         print(':at', dd['at'], ':hi', dd['hi'], ':isSorted', dd['isSorted'], ':lo', dd['lo'], ':n', dd['n'],
               ':name', dd['name'], ':w', dd['w'])
 
-    print(d.nearest_neighbor(5))
+    print("\n", d.nearest_neighbor(5, "train"))
+    print("\n", d.nearest_neighbor(5, "test"))
 
 
 if __name__ == "__main__":
