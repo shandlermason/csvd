@@ -124,7 +124,7 @@ def test_classifier():
 def test_regression():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
     k = 5
-    col_at = 4
+    col_at = data.cols.names.index("Acc+")
 
     # report average acceleration of k = 5
     avg = data.predicted(k, col_at)
