@@ -107,7 +107,6 @@ def test_nearest_neighbor():
             print(y[i].cells)
 
 
-# FIX THIS
 # takes the symbols seen in 5 nn and finds the most common symbol
 def test_classifier():
     data = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
@@ -129,11 +128,19 @@ def test_regression():
 
     # report average acceleration of k = 5
     avg = data.predicted(k, col_at)
-    print("\nAverage/Predicted Acc for k=5: ", avg)
+    print("\nAverage Acc for", "k=", k, "(predicted value for k=", k+1, ")", ": ", avg)
 
     # report error of numeric variable
     mre = data.error(k, col_at)
-    print("\nMagnitude relative error = ", mre)
+    print("Magnitude relative error for k=", k, ": ", mre)
+
+    # report error of numeric variable
+    # find mre for nearest neighbors then average all the values together
+    mre_list = []
+    for count in range(1, k+1):
+        mre_list.append(data.error(count, col_at))
+    mmre = (1/k) * sum(mre_list)
+    print("Mean magnitude relative error for k=", k, ": ", round(mmre, 3))
 
 
 # executes each test and stores results at the end prints results and # of fails

@@ -68,7 +68,7 @@ class Data:
                     s_list.append(ro.cells[col.at])
         return s_list
 
-    # find average of 5 nearest neighbors in dependent column
+    # find average of k nearest neighbors in dependent column
     def predicted(self, k_val, col_loc):
         knn_for_val = self.nearest_neighbor(self.around(self.rows[0]), k_val)
         acc_list = []
@@ -78,12 +78,12 @@ class Data:
 
     # find magnitude relative error
     def error(self, k_val, col_loc):
-        # finds actual value in 6th nearest neighbor
-        knn_val = self.nearest_neighbor(self.around(self.rows[0]), k_val+1)  # k=6
+        # finds actual value in next nearest neighbor (k=k+1)
+        knn_val = self.nearest_neighbor(self.around(self.rows[0]), k_val+1)
         actual = knn_val[k_val].cells[col_loc]  # column value in k=6
 
         # the predicted value is the average of the values of its k nearest neighbors
-        predicted = self.predicted(5, 4)
+        predicted = self.predicted(k_val, col_loc)
 
         # magnitude relative error
         return round(abs(predicted - actual) / actual, 3)
