@@ -3,6 +3,7 @@ from src.row import Row
 from src.cols import Cols
 from src.sym import Sym
 
+
 class Data:
     def __init__(self, src):
         self.cols = None  # summaries of data

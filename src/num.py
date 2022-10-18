@@ -33,7 +33,8 @@ class Num:
                 if val == float('inf'):
                     pos = i
                     break
-            if pos == -1 and random.random() < int(settings.the['nums']) / self.n:  # if resevior sampler is full add number at random position based on percentage
+            # if resevior sampler is full add number at random position based on percentage
+            if pos == -1 and random.random() < int(settings.the['nums']) / self.n:
                 pos = random.randint(0, len(self._has)-1)
             if pos != -1:
                 self.isSorted = False

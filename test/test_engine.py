@@ -32,7 +32,7 @@ def test_bignum():
         num.add(i)
     print('\n', num.nums())
     assert 32 == len(num._has)
-    settings.the['nums'] = 512 # FIX: reset to original number
+    settings.the['nums'] = 10000 # FIX: reset to original number
 
 
 # testing Sym mode and entropy
