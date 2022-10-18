@@ -26,13 +26,13 @@ def test_num():
 
 # what is the purpose of this test? Do I have to print numbers out even if test passes?
 def test_bignum():
-    num = Num()
     settings.the['nums'] = 32
+    num = Num()
     for i in range(1, 1001):
         num.add(i)
     print('\n', num.nums())
     assert 32 == len(num._has)
-    settings.the['nums'] = 512
+    settings.the['nums'] = 512 # FIX: reset to original number
 
 
 # testing Sym mode and entropy

@@ -9,7 +9,7 @@ class Num:
         self.n = 0  # items seen
         self.at = c or 0  # column position
         self.name = s or ""  # column name
-        self._has = {}  # kept data
+        self._has = [float('inf')] * int(settings.the['nums'])  # kept data, list with fixed # of positions
         self.lo = float('inf')  # lowest seen
         self.hi = float('-inf')  # highest seen
         self.isSorted = True
@@ -18,7 +18,7 @@ class Num:
     #  Return sorted kept numbers
     def nums(self):
         if not self.isSorted:
-            self._has = sorted(self._has.values())  # sort by value
+            self._has = sorted(self._has)  # sort by value
             self.isSorted = True
         return self._has
 
@@ -28,25 +28,33 @@ class Num:
             self.n = self.n + 1
             self.lo = min(v, self.lo)
             self.hi = max(v, self.hi)
-            if len(self._has) < int(settings.the['nums']):
-                pos = 1 + len(self._has)
-                if pos:
-                    self.isSorted = False
-                    self._has[pos] = int(v)
-            elif random.random() < int(settings.the['nums']) / self.n:
-                pos = random.randint(0, len(self._has))
-                if pos:
-                    self.isSorted = False
-                    self._has[pos] = int(v)
+            pos = -1
+            for i, val in enumerate(self._has):
+                if val == float('inf'):
+                    pos = i
+                    break
+            if pos == -1 and random.random() < int(settings.the['nums']) / self.n:  # if resevior sampler is full add number at random position based on percentage
+                pos = random.randint(0, len(self._has)-1)
+            if pos != -1:
+                self.isSorted = False
+                self._has[pos] = int(v)
 
     def div(self):
-        div_list = self.nums()
+        div_list = []
+        for num in self._has:
+            if num != float('inf'):
+                div_list.append(num)
+
         perc_index_90 = (90/100) * len(div_list)
         perc_index_10 = (10/100) * len(div_list)
         return (div_list[int(perc_index_90)] - div_list[int(perc_index_10)])/2.58
 
     def mid(self):
-        mid_list = self.nums()
+        mid_list = []
+        for num in self._has:
+            if num != float('inf'):
+                mid_list.append(num)
+
         len_of_list = len(mid_list)
         if len_of_list % 2 == 0:
             first_median = mid_list[len_of_list // 2]
