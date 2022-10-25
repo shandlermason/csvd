@@ -61,15 +61,15 @@ def get_counts(clf, x_train, y_train, x_test, y_test, test_df, biased_col, metri
     elif metric == 'eod':
         return calculate_equal_opportunity_difference(a, b, c, d, e, f, g, h)
     elif metric == 'recall':
-        return calculate_recall(TP, FP, FN, TN)
+        return calculate_recall(e, h, g, f)
     elif metric == 'far':
-        return calculate_far(TP, FP, FN, TN)
+        return calculate_far(e, h, g, f)
     elif metric == 'precision':
-        return calculate_precision(TP, FP, FN, TN)
+        return calculate_precision(e, h, g, f)
     elif metric == 'accuracy':
-        return calculate_accuracy(TP, FP, FN, TN)
+        return calculate_accuracy(e, h, g, f)
     elif metric == 'F1':
-        return calculate_F1(TP, FP, FN, TN)
+        return calculate_F1(e, h, g, f)
     elif metric == 'TPR':
         return calculate_TPR_difference(a, b, c, d, e, f, g, h)
     elif metric == 'FPR':
