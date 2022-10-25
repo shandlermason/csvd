@@ -40,6 +40,7 @@ def main():
 
     for dataset in datasets:
         klist = keywords[dataset]
+        results = []
         for keyword in klist:
 
             # import data
@@ -74,8 +75,9 @@ def main():
                 pred = clf.predict(X_test)  # returns list of class labels (predictions)
                 # compare predictions to actual ground truth value
 
-                print(getMetrics(train_df, y_test, pred, keyword))
+                results.append(getMetrics(train_df, y_test, pred, keyword))
 
+    pd.DataFrame(results, columns=['recall', 'precision', 'accuracy', 'F1', 'FA0', 'FA1', 'AOD', 'EOD', 'SPD', 'DI', 'learner']).to_csv("output.csv", index=False)
 
 if __name__ == "__main__":
     main()
