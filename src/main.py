@@ -1,6 +1,6 @@
 from src.data import Data
 
-
+'''
 def main():
     d = Data('https://raw.githubusercontent.com/timm/lua/main/data/auto93.csv')
 
@@ -20,3 +20,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+'''
