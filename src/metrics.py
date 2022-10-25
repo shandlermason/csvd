@@ -5,46 +5,47 @@ from sklearn.neighbors import KDTree
 from sklearn.neighbors import NearestNeighbors
 
 
-def get_counts(clf, x_train, y_train, x_test, y_test, test_df, biased_col, metric='aod'):
+def get_counts(df, y_test, y_pred, biased_col, metric):
     # clf.fit(x_train, y_train)
-    y_pred = clf.predict(x_test)
-    cnf_matrix = confusion_matrix(y_test, y_pred)
+    # y_pred = clf.predict(x_test)
+    # cnf_matrix = confusion_matrix(y_test, y_pred)
 
-    TN, FP, FN, TP = confusion_matrix(y_test, y_pred).ravel()
+    # TN, FP, FN, TP = confusion_matrix(y_test, y_pred).ravel()
 
-    test_df_copy = copy.deepcopy(test_df)
-    test_df_copy['current_pred_' + biased_col] = y_pred
+    test_df_copy = copy.deepcopy(df)
+    test_df_copy['y_pred'] = y_pred
+    test_df_copy['Probability'] = y_test
 
     test_df_copy['TP_' + biased_col + "_1"] = np.where((test_df_copy['Probability'] == 1) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 1) &
+                                                       (test_df_copy['y_pred'] == 1) &
                                                        (test_df_copy[biased_col] == 1), 1, 0)
 
     test_df_copy['TN_' + biased_col + "_1"] = np.where((test_df_copy['Probability'] == 0) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 0) &
+                                                       (test_df_copy['y_pred'] == 0) &
                                                        (test_df_copy[biased_col] == 1), 1, 0)
 
     test_df_copy['FN_' + biased_col + "_1"] = np.where((test_df_copy['Probability'] == 1) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 0) &
+                                                       (test_df_copy['y_pred'] == 0) &
                                                        (test_df_copy[biased_col] == 1), 1, 0)
 
     test_df_copy['FP_' + biased_col + "_1"] = np.where((test_df_copy['Probability'] == 0) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 1) &
+                                                       (test_df_copy['y_pred'] == 1) &
                                                        (test_df_copy[biased_col] == 1), 1, 0)
 
     test_df_copy['TP_' + biased_col + "_0"] = np.where((test_df_copy['Probability'] == 1) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 1) &
+                                                       (test_df_copy['y_pred'] == 1) &
                                                        (test_df_copy[biased_col] == 0), 1, 0)
 
     test_df_copy['TN_' + biased_col + "_0"] = np.where((test_df_copy['Probability'] == 0) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 0) &
+                                                       (test_df_copy['y_pred'] == 0) &
                                                        (test_df_copy[biased_col] == 0), 1, 0)
 
     test_df_copy['FN_' + biased_col + "_0"] = np.where((test_df_copy['Probability'] == 1) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 0) &
+                                                       (test_df_copy['y_pred'] == 0) &
                                                        (test_df_copy[biased_col] == 0), 1, 0)
 
     test_df_copy['FP_' + biased_col + "_0"] = np.where((test_df_copy['Probability'] == 0) &
-                                                       (test_df_copy['current_pred_' + biased_col] == 1) &
+                                                       (test_df_copy['y_pred'] == 1) &
                                                        (test_df_copy[biased_col] == 0), 1, 0)
 
     a = test_df_copy['TP_' + biased_col + "_1"].sum()
@@ -137,7 +138,7 @@ def calculate_FPR_difference(TP_1, TN_1, FN_1, FP_1, TP_0, TN_0, FN_0, FP_0):
 
 
 def calculate_recall(TP, FP, FN, TN):
-    if (TP + FN) is not 0:
+    if (TP + FN) != 0:
         recall = TP / (TP + FN)
     else:
         recall = 0
@@ -145,7 +146,7 @@ def calculate_recall(TP, FP, FN, TN):
 
 
 def calculate_far(TP, FP, FN, TN):
-    if (FP + TN) is not 0:
+    if (FP + TN) != 0:
         far = FP / (FP + TN)
     else:
         far = 0
@@ -153,7 +154,7 @@ def calculate_far(TP, FP, FN, TN):
 
 
 def calculate_precision(TP, FP, FN, TN):
-    if (TP + FP) is not 0:
+    if (TP + FP) != 0:
         prec = TP / (TP + FP)
     else:
         prec = 0
@@ -163,7 +164,7 @@ def calculate_precision(TP, FP, FN, TN):
 def calculate_F1(TP, FP, FN, TN):
     precision = calculate_precision(TP, FP, FN, TN)
     recall = calculate_recall(TP, FP, FN, TN)
-    F1 = (2 * precision * recall) / (precision + recall)
+    F1 = (2 * precision * recall) / (precision + recall) if (precision + recall) else 0
     return round(F1, 2)
 
 
@@ -194,7 +195,6 @@ def calculate_false_alarm(TP,FP,FN,TN):
     return round(alarm,2)
 
 
-def measure_final_score(test_df, clf, X_train, y_train, X_test, y_test, biased_col, metric):
+def measure_final_score(test_df, y_test, y_pred, biased_col, metric):
     df = copy.deepcopy(test_df)
-    return get_counts(clf, X_train, y_train, X_test, y_test, df, biased_col, metric=metric)
-
+    return get_counts(df, y_test, y_pred, biased_col, metric=metric)
