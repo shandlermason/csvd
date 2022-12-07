@@ -8,33 +8,39 @@ import settings
 from metrics import measure_final_score
 
 
-def getMetrics(df, y_test, pred, keyword, learner='knn'):
+def getMetrics(df, y_test, pred, keyword, dataset, learner='knn'):
 
     recall = measure_final_score(df, y_test, pred, keyword, 'recall')
     precision = measure_final_score(df, y_test, pred, keyword, 'precision')
     accuracy = measure_final_score(df, y_test, pred, keyword, 'accuracy')
     F1 = measure_final_score(df, y_test, pred, keyword, 'F1')
     AOD = measure_final_score(df, y_test, pred, keyword, 'aod')
-    EOD =measure_final_score(df, y_test, pred, keyword, 'eod')
+    EOD = measure_final_score(df, y_test, pred, keyword, 'eod')
     SPD = measure_final_score(df, y_test, pred, keyword, 'SPD')
     FA0 = measure_final_score(df, y_test, pred, keyword, 'FA0')
     FA1 = measure_final_score(df, y_test, pred, keyword, 'FA1')
     DI = measure_final_score(df, y_test, pred, keyword, 'DI')
 
-    return [recall, precision, accuracy, F1, FA0, FA1, AOD, EOD, SPD, DI, learner]
+    return [recall, precision, accuracy, F1, FA0, FA1, AOD, EOD, SPD, DI, dataset, learner]
 
 
 def main():
-    datasets = ['https://raw.githubusercontent.com/laurensalvarez/Lying/main/datasets/processed/diabetes_p.csv']
-        #, "heart", "germancredit", "diabetes", "communities", "compas", "studentperformance", "bankmarketing", "defaultcredit", "adultscensusincome"]
-    keywords = {'https://raw.githubusercontent.com/laurensalvarez/Lying/main/datasets/processed/diabetes_p.csv' : ['Age('],
+    heart = 'https://raw.githubusercontent.com/anonymous12138/biasmitigation/a77c58f94d0dc9b98d7f3df361bd30a90fa295ae/Data/heart_processed.csv'
+    default = 'https://raw.githubusercontent.com/anonymous12138/biasmitigation/a77c58f94d0dc9b98d7f3df361bd30a90fa295ae/Data/default_processed.csv'
+    GermanData = 'https://raw.githubusercontent.com/anonymous12138/biasmitigation/a77c58f94d0dc9b98d7f3df361bd30a90fa295ae/Data/GermanData_processed.csv'
+    bank = 'https://raw.githubusercontent.com/anonymous12138/biasmitigation/a77c58f94d0dc9b98d7f3df361bd30a90fa295ae/Data/bank_processed.csv'
+    MEPS = 'https://raw.githubusercontent.com/anonymous12138/biasmitigation/main/Data/h181_processed.csv'
+
+    datasets = [heart, default, GermanData, bank, MEPS]
+    keywords = {heart: ['age'],
+                default: ['sex'],
+                GermanData: ['sex'],
+                bank: ['age'],
+                MEPS: ['race'],
+
+
                 'adultscensusincome': ['race', 'sex'],
                 'compas': ['race', 'sex'],
-                'bankmarketing': ['Age'],
-                'defaultcredit': ['sex'],
-                'diabetes': ['Age'],
-                'germancredit': ['sex'],
-                'heart': ['Age'],
                 'studentperformance': ['sex']
                 }
 
@@ -49,10 +55,16 @@ def main():
             rows.pop(0)
             df = pd.DataFrame(rows, columns=columns)
             # from dataframe split into X and Y
-            y = df["!probability"].values
+            y = df["Probability"].values
             # remove y values from df
-            df.drop('!probability', axis=1)
+            df.drop('Probability', axis=1)
             X = df.values
+
+            # add a scaler to standardize(normalize) all my X values
+            scaler = MinMaxScaler()
+            scaler.fit(X)
+            max = scaler.data_max_
+            X = scaler.transform(X)
 
             # repeated k fold - 5x5
             '''Split dataset into k consecutive folds (without shuffling by default). Each fold is then used 
@@ -75,9 +87,11 @@ def main():
                 pred = clf.predict(X_test)  # returns list of class labels (predictions)
                 # compare predictions to actual ground truth value
 
-                results.append(getMetrics(train_df, y_test, pred, keyword))
+                results.append(getMetrics(train_df, y_test, pred, keyword, dataset))
 
-    pd.DataFrame(results, columns=['recall', 'precision', 'accuracy', 'F1', 'FA0', 'FA1', 'AOD', 'EOD', 'SPD', 'DI', 'learner']).to_csv("output.csv", index=False)
+    pd.DataFrame(results, columns=['recall', 'precision', 'accuracy', 'F1', 'FA0', 'FA1', 'AOD', 'EOD', 'SPD',
+                                   'DI', 'dataset', 'learner']).to_csv("output.csv", index=False)
+
 
 if __name__ == "__main__":
     main()
