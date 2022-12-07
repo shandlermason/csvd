@@ -44,10 +44,10 @@ def main():
                 'studentperformance': ['sex']
                 }
 
-    results = []
+    #results = []
     for dataset in datasets:
         klist = keywords[dataset]
-        #results = []
+        results = []
         for keyword in klist:
 
             # import data
@@ -89,6 +89,12 @@ def main():
                 # compare predictions to actual ground truth value
 
                 results.append(getMetrics(train_df, y_test, pred, keyword, dataset))
+
+        df_results = pd.DataFrame(results, columns=['recall', 'precision', 'accuracy', 'F1', 'FA0', 'FA1', 'AOD', 'EOD', 'SPD',
+                                   'DI', 'dataset', 'learner'])
+
+        df_mean = df_results.mean(numeric_only=True)
+        print(df_results.iloc[0]['dataset'], '\n', df_mean)
 
     pd.DataFrame(results, columns=['recall', 'precision', 'accuracy', 'F1', 'FA0', 'FA1', 'AOD', 'EOD', 'SPD',
                                    'DI', 'dataset', 'learner']).to_csv("output.csv", index=False)
