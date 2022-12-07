@@ -44,9 +44,10 @@ def main():
                 'studentperformance': ['sex']
                 }
 
+    results = []
     for dataset in datasets:
         klist = keywords[dataset]
-        results = []
+        #results = []
         for keyword in klist:
 
             # import data
