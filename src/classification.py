@@ -78,10 +78,9 @@ def main():
 
                 # create new df from train index
                 train_df = pd.DataFrame(X_test, columns=df.columns)
-                # implement my own stuff later
                 # implement classifier (clf)
                 clf = KNeighborsClassifier(n_neighbors=3)
-                # training = fitting, fit classifier to training data
+                # training = fitting, fit classifier to training data; Calling fit() more than once will overwrite what was learned by any previous fit().
                 clf.fit(X_train, y_train)
                 # have a fully trained classifier
                 # predict classes for set you haven't seen yet (test values)
